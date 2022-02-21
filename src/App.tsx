@@ -1,9 +1,14 @@
+import LoginForm from './components/molecules/LoginForm';
 import NavBar from './routes/Navbar';
+
 
 function App() {
   return (
     <div>
-     <NavBar/>
+
+      <div>
+        <LoginForm />
+      </div>
     </div>
   );
 }
