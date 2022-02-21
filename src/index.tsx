@@ -8,9 +8,9 @@ import {
 import './style.css';
 import Profile from './routes/Profile';
 import Home from './routes/Home';
-
 import reportWebVitals from './reportWebVitals';
 import NavBar from './routes/Navbar';
+import LoginForm from './components/molecules/LoginForm';
 
 ReactDOM.render(
   <BrowserRouter>
