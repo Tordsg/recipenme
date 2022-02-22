@@ -12,6 +12,7 @@ import reportWebVitals from './reportWebVitals';
 import NavBar from './routes/Navbar';
 import LoginForm from './components/molecules/LoginForm';
 
+
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
@@ -27,6 +28,7 @@ ReactDOM.render(
           </main>
         } />
       </Route>
+      
     </Routes>
   </BrowserRouter>,
   document.getElementById('root')

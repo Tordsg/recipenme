@@ -1,0 +1,135 @@
+* {
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+  }
+  
+  body {
+      margin: 0;
+      font-family: sans-serif;
+      height: 100vh;
+      background-color: #FFFFFF;
+  }
+  
+  /*Navbar styling*/
+  .navbar {
+    background-color: #E1EEDD;
+    display: flex;
+    align-items: center;
+    height: 90px;
+  }
+  
+  .navbar--scrolldownIcon {
+    padding-left: 20px;
+    font-size: 30px;
+  }
+  
+  .navbar--profileIcon {
+    margin-left: auto;
+    font-size: 30px;
+    padding-right: 20px;
+    }
+  
+  .navbar--header {
+    margin-left: 40%;
+  }
+  
+  /*Discover section styling*/
+  .discover {
+    display: flex;
+    align-items: center;
+  }
+  
+  .discover--feed {
+    margin-left: 40%;
+  }
+  
+  .discover--explore {
+    margin-left: auto;
+    margin-right: 40%;
+    font-weight: normal;
+  }
+  
+  /*Category section styling*/
+  
+  .categories--table {
+    display: table;
+    margin: 0 auto;
+  }
+  
+  .categories--list {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+  }
+  
+  .categories--list > li {
+    margin: 10px 10px;
+    
+  }
+  
+  .categories--list > li::marker {
+    color: white; /*"Removing" bulletpoints from li items*/
+  }
+  
+  .categories--pop_dish {
+    font-weight: 900;
+  }
+  /*MainBody styling*/
+  .MainBody {
+    margin: 0% 5%;
+    height: 100vh;
+    background-color: #FEFBE9;
+    color: black;
+  }
+  
+  .MainBody--list {
+    margin-right: 15%;
+    margin-left: 15%;
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+  
+  .MainBody--list > li {
+    padding: 5% 5%;
+    border: 1px solid black;
+  }
+  
+  .MainBody--list > li::marker {
+    color: white; /*Removing bulletpoints again*/
+  } 
+  
+  .MainBody--biff > img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .MainBody--biff > h4 {
+    margin-left: 10%;
+  }
+  
+  .MainBody--laks > img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .MainBody--laks > h4 {
+    margin-left: 10%;
+  }
+  
+  .MainBody--pizza > img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .MainBody--pizza > h4 {
+    margin-left: 10%;
+  }
+  
+  .MainBody--spagh_bolo > img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .MainBody--spagh_bolo > h4 {
+    margin-left: 10%;
+  }  
