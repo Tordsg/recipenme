@@ -1,0 +1,18 @@
+.signUpDiv{
+    margin: auto;
+    /*top: 0; */
+    margin-top: 5vw;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 400px;
+    height: 515px;
+    border-style: solid;
+    border-radius: 10px;
+    border-color: #a9d89b;
+}
+
+.signUpForm{
+    margin-top: 8%;
+    text-align: center;
+}
