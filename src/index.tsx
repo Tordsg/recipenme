@@ -11,12 +11,13 @@ import Home from './routes/Home';
 import reportWebVitals from './reportWebVitals';
 import NavBar from './routes/Navbar';
 import LoginForm from './components/molecules/LoginForm';
+import SignUpForm from './components/molecules/SignUpForm';
 
 
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<NavBar />}>
+      <Route path="/" element={<SignUpForm />}>
         <Route path="profile" element={<Profile />} />
         <Route path="home" element={<Home />} />
         <Route
