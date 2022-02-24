@@ -13,14 +13,16 @@ import NavBar from './routes/Navbar';
 import LoginForm from './components/molecules/LoginForm';
 import SignUpForm from './components/molecules/SignUpForm';
 import NewRecipeForm from './components/molecules/NewRecipeForm';
+import Navbar from './routes/Navbar';
 
 
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<LoginForm />}>
-        <Route path="profile" element={<Profile />} />
+      <Route path="/" element={<Navbar />}>
         <Route path="home" element={<Home />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="login" element={<LoginForm />} />
         <Route
         path="*"
         element=

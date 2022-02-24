@@ -11,11 +11,11 @@ export default function SignUpForm(){
         <div className='signUpDiv'>
             <p className='header'>Sign up</p>
             <form className='signUpForm'>
-                <AccountTextField placeholder={'First name'}/>
-                <AccountTextField placeholder={'Last name'}/>
-                <AccountTextField placeholder={'Email'}/>
-                <AccountTextField placeholder={'Password'}/>
-                <AccountTextField placeholder={'Repeat password'}/>
+                <AccountTextField id ={'randomText 1'} placeholder={'First name'}/>
+                <AccountTextField id ={'randomText 2'} placeholder={'Last name'}/>
+                <AccountTextField id ={'randomText 3'} placeholder={'Email'}/>
+                <AccountTextField id ={'randomText 4'} placeholder={'Password'}/>
+                <AccountTextField id ={'randomText 5'} placeholder={'Repeat password'}/>
             </form>
             <LoginButton buttonText='Sign up'/>
             <br />
