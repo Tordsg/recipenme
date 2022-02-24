@@ -9,8 +9,8 @@ export default function LoginForm(){
         <div className='loginForm'>
             <p className='header'>Sign in</p>
             <form className='form'>
-                <AccountTextField placeholder={'Email'}/>
-                <AccountTextField placeholder={'Password'}/>
+                <AccountTextField id={'emailField'} placeholder={'Email'}/>
+                <AccountTextField id={'passwordField'} placeholder={'Password'}/>
             </form>
             <LoginButton buttonText='Sign in'/>
             <br />

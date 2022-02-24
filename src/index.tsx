@@ -18,7 +18,7 @@ import NewRecipeForm from './components/molecules/NewRecipeForm';
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<NewRecipeForm />}>
+      <Route path="/" element={<LoginForm />}>
         <Route path="profile" element={<Profile />} />
         <Route path="home" element={<Home />} />
         <Route

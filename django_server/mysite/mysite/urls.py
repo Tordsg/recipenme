@@ -15,24 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.urls import include        
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-]
-
-urlpatterns += [
-    path('app1/', include('app1.urls')),
-]
-
-#Add URL maps to rederict the base URL to our application
+from django.urls import include
 from django.views.generic import RedirectView
-urlpatterns += [
-    path('', RedirectView.as_view(url='app1', permanent=True)),
-]
-
-# Use static() to add url mapping to serve static files during development (only)
 from django.conf import settings
 from django.conf.urls.static import static
 
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+#Add URL maps to rederict the base URL to our application
+# Use static() to add url mapping to serve static files during development (only)
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('app1/', include('app1.urls')),
+    path('', RedirectView.as_view(url='app1', permanent=True)),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
