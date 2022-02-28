@@ -1,0 +1,49 @@
+/* 
+CSS and Flexbox Guides:
+afterhttps://css-tricks.com/snippets/css/a-guide-to-flexbox/#aa-basics-and-terminology
+https://www.w3schools.com/cssref/css3_pr_justify-content.asp
+*/
+
+.wrapper {
+    display: flex; /* Defines a flex container */
+    flex-wrap: wrap; /* Flex items will wrap onto multiple lines, from top to bottom */ 
+    margin: 0% 5%;
+    height: 100vh;
+    background-color: #FEFBE9;
+    color: black;
+    padding: 5%;
+}
+
+
+.wrapper > .Biography {
+    display: flex; /* Defines a flex container */
+    /* background-color: lightblue; */ 
+    flex-flow: column wrap; 
+    height: 20%;
+    flex: 2;
+    padding: 5%;
+}
+
+.Biography > .UserName {
+    /* background-color: lightcyan; */
+    flex: 0 0 95%; /* Dont grow, dont shrik, take up 80%  of the row */
+}
+
+.Biography > .NewRecipe {
+    /* background-color: lightpink; */
+    flex: 0 0 5%; /* Dont grow, dont shrik, take up 20%  of the row */
+    align-items: flex-end; /* Items are positioned at the end of the container */
+}
+
+.wrapper > .tabs {
+    /* background-color: lightskyblue; */
+    flex: 0 0 100%; /* Dont grow, dont shrik, take up 20%  of the row */
+}
+
+.wrapper > .recipes {
+    /* background-color: lightseagreen; */
+    flex: 0 0 100%;
+    height: 100vh;
+    bottom: 0%;
+    padding: 5%;
+}
