@@ -23,6 +23,7 @@ ReactDOM.render(
         <Route path="home" element={<Home />} />
         <Route path="profile" element={<Profile />} />
         <Route path="login" element={<LoginForm />} />
+        <Route path="new-recipe" element={<NewRecipeForm />} />
         <Route
         path="*"
         element=

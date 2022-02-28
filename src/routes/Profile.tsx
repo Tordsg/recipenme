@@ -57,7 +57,7 @@ export default function Profile(){
     let navigate = useNavigate(); 
 
     const routeChange = () =>{ 
-      let path = `/home`; 
+      let path = `/new-recipe`; 
       navigate(path);
     }
 
