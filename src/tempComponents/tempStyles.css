@@ -10,33 +10,11 @@
       background-color: #FFFFFF;
   }
   
-  /*Navbar styling*/
-  .navbar {
-    background-color: #E1EEDD;
-    display: flex;
-    align-items: center;
-    height: 90px;
-  }
-  
-  .navbar--scrolldownIcon {
-    padding-left: 20px;
-    font-size: 30px;
-  }
-  
-  .navbar--profileIcon {
-    margin-left: auto;
-    font-size: 30px;
-    padding-right: 20px;
-    }
-  
-  .navbar--header {
-    margin-left: 40%;
-  }
-  
   /*Discover section styling*/
   .discover {
     display: flex;
     align-items: center;
+    margin-top: 2%;
   }
   
   .discover--feed {
@@ -48,40 +26,21 @@
     margin-right: 40%;
     font-weight: normal;
   }
-  
-  /*Category section styling*/
-  
-  .categories--table {
+
+  /*NewMainBody styling*/
+
+  .NewMainBody--body {
     display: table;
-    margin: 0 auto;
-  }
-  
-  .categories--list {
-    display: flex;
-    align-items: center;
-    margin-right: auto;
-  }
-  
-  .categories--list > li {
-    margin: 10px 10px;
-    
-  }
-  
-  .categories--list > li::marker {
-    color: white; /*"Removing" bulletpoints from li items*/
-  }
-  
-  .categories--pop_dish {
-    font-weight: 900;
+    margin: 3% auto;
   }
   /*MainBody styling*/
   .MainBody {
-    margin: 0% 5%;
+    margin: 2% 5%;
     height: 100vh;
     background-color: #FEFBE9;
     color: black;
   }
-  
+
   .MainBody--list {
     margin-right: 15%;
     margin-left: 15%;
@@ -133,3 +92,5 @@
   .MainBody--spagh_bolo > h4 {
     margin-left: 10%;
   }  
+
+  
