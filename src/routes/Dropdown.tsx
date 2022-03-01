@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Wrapper, ActivatorButton, DropdownList } from "./styles";
+import MenuIcon from '@mui/icons-material/Menu';
 
 interface IDropdownItem {
   id: number;
@@ -16,27 +17,37 @@ const dropdownItems = [
   {
     id: 1,
     url: "myLink",
-    text: "option"
+    text: "Populære retter"
   },
   {
     id: 2,
     url: "myLink2",
-    text: "option2"
+    text: "Frokost"
   },
   {
     id: 3,
     url: "myLink3",
-    text: "option3"
+    text: "Enkle retter"
   },
   {
     id: 4,
     url: "myLink4",
-    text: "option4"
+    text: "Vegansk"
+  },
+  {
+    id: 4,
+    url: "myLink5",
+    text: "Italiensk"
+  },
+  {
+    id: 4,
+    url: "myLink6",
+    text: "Glutenfritt"
   }
 ];
 
 const Dropdown = ({
-  activatorText = "Dropdown",
+  activatorText = "Categories",
   items = dropdownItems
 }: IProps) => {
   

@@ -6,14 +6,15 @@
 nav {
     display: flex;
     align-items: center;
-    background-color: grey;
-    height: 45px;
+    background-color: #E1EEDD;
+    height: 90px;
     padding: 10px 25px;
 }
 .AppTitle {
     margin-right: auto;
-    margin-left: auto;
-    color: #61DAFB;
+    margin-left: 32%;
+    color: black;
     font-weight: 700;
-    font-size: 22px;
+    font-size: 30px;
 }
+
