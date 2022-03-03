@@ -18,7 +18,7 @@ export default function Navbar(){
         <div>
             <nav>
                 <Dropdown />
-                <Link className = 'AppTitle' to = '/home'>
+                <Link className = 'AppTitle' to = '/'>
                     <h3>
                         RecipeN´Me
                     </h3>

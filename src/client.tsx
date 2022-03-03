@@ -33,7 +33,7 @@ async function getRecipe(recipeId: number){
     console.log(error);
   }
 }
-function postRecipe(ownerIDToPost:number, titleToPost:string, imageToPost:string, timeEstimateToPost:string, preparationToPost:string, ingredientsToPost:string, categoryIDToPost:Array<number>) {
+function postRecipe(ownerIDToPost:number, titleToPost:string, imageToPost:string, timeEstimateToPost:string, categoriesToPost:string, preparationToPost:string, ingredientsToPost:string) {
   axios.post('/recipe', {
     owner: ownerIDToPost,
     title: titleToPost,
@@ -41,7 +41,7 @@ function postRecipe(ownerIDToPost:number, titleToPost:string, imageToPost:string
     time_estimate: timeEstimateToPost,
     preparation: preparationToPost,
     ingredients: ingredientsToPost,
-    category: categoryIDToPost
+    category: categoriesToPost
   })
   .then(function (response: any) {
     console.log(response);
