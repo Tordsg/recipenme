@@ -1,5 +1,6 @@
 import Discover from "../tempComponents/Discover"
 import MainBody from "../tempComponents/MainBody"
+/*import NewMainBody from "../tempComponents/NewMainBody" */
 
 export default function Home() {
     return (
@@ -13,4 +14,3 @@ export default function Home() {
         </div>
     );
 }
-

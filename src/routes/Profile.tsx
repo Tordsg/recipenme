@@ -83,18 +83,10 @@ export default function Profile(){
                     textColor="secondary"
                     indicatorColor="secondary"
                     >
-                        <Tab label="My recipes" />
+                        <Tab label="My recipes"/>
                         <Tab label="Saved recipes" />
                     </Tabs>
                 </Box>
-            </div>
-            <div className="recipes" index={value} onChangeIndex={handleChangeIndex} >
-                <TabPanel value={value} index={0}>
-                    <ProfileRecipeFeed />
-                </TabPanel>
-                <TabPanel value={value} index={1} >
-                    <ProfileRecipeFeed />
-                </TabPanel>
             </div>
         </div>
         
