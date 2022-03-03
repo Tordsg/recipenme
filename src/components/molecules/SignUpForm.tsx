@@ -5,6 +5,7 @@ import './SignUpForm.css'
 import AccountSwitchButton from '../atoms/AccountSwitchButton';
 import AccountTextField from '../atoms/AccountTextField';
 import { postUser } from '../../client';
+import { useNavigate } from 'react-router-dom';
 
 function getFirstName() {
     let firstName = (document.getElementById("firstNameFieldSignUp") as HTMLInputElement).value;
@@ -32,6 +33,13 @@ function handleSignUp(){
 }
 
 export default function SignUpForm(){ 
+    let navigate = useNavigate(); 
+
+    const routeChange = () =>{ 
+        let path = '/'; 
+        navigate(path);
+      }
+    
     return (
         <div className='signUpDiv'>
             <p className='header'>Sign up</p>
@@ -42,7 +50,7 @@ export default function SignUpForm(){
                 <AccountTextField id="passwordFieldSignUp" placeholder={'Password'}/>
                 <AccountTextField id="repeatPasswordFieldSignUp" placeholder={'Repeat password'}/>
             </form>
-            <AccountButton handleClick={() => handleSignUp()} buttonText='Sign up'/>
+            <AccountButton handleClick={() => (handleSignUp(), routeChange())} buttonText='Sign up'/>
             <br />
             <AccountSwitchButton labelText='Already have an account?' buttonText='Sign in here' inputPath='/login'/>
         </div>

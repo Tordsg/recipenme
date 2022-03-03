@@ -16,8 +16,20 @@ h3 {
 .fileInput {
   display: none;
 }
-.fileLabel {
-  padding: 1vw 2vw;
+.categories {
+  margin: 2vw auto;
+}
+.checkbox {
+  display: none;
+}
+.checkLabel {
+  font-size: 1.7vw;
+  padding: 0.5vw;
+  border-radius: 1vw;
+  margin: 2vw 1vw;
+}
+.checkbox:checked + .checkLabel {
+  background-color: #e1eedd;
 }
 
 .fileContainer:hover {
@@ -36,6 +48,11 @@ h3 {
   margin: auto;
   font-size: 2vw;
   padding-top: 2vw;
+}
+.categoryLabel {
+  margin: 3vw auto;
+  font-size: 2vw;
+
 }
 
 .fileContainer {
@@ -71,4 +88,3 @@ h3 {
   top: 6vw;
   display: none;
 }
-

@@ -8,6 +8,11 @@ import '../atoms/FormTextArea.css';
 import PlussSymbol from '../atoms/PlussSymbol';
 import { Button } from 'react-bootstrap';
 import { postRecipe } from '../../client';
+import './NewRecipeForm.css';
+import '../atoms/FormTextField';
+import '../atoms/FormTextArea.css';
+import { useNavigate } from 'react-router-dom';
+
 
 function NewIngredientField() {
     const minus = document.getElementById('minusVisibility');
@@ -57,19 +62,39 @@ function getImage() {
 }
 
 function getIngredients() {
-    const nodeList = document.getElementById("list")?.childNodes;
+    const nodeList = document.getElementById("list")?.childNodes;    
     let numb;
-    let ingredients = [];
-    if ( nodeList) {
+    let ingredients = "";
+    if (nodeList) {
         numb = nodeList.length;
-        if (numb) {
+        if (numb) {            
             for (let child = 0; child < numb; child ++)  {
-                let ingredient = (nodeList[child] as HTMLInputElement).value;
-                ingredients.push(ingredient);
+                let ingredient = (nodeList[child].childNodes[0] as HTMLInputElement).value;                
+                if(ingredients.length > 0) {
+                    ingredients = ingredients.concat(",");
+
+                }
+                ingredients = ingredients.concat(ingredient);
             }
         }
     }
     return ingredients;
+}
+
+function getCategories() {
+    let checkedCategories = "";
+    for (let i = 0; i < 5; i++) {        
+        let checkbox = document.getElementsByClassName('checkbox')[i] as HTMLInputElement;
+        if (checkbox.checked == true) {
+            
+            if(checkedCategories.length > 0) {
+                checkedCategories = checkedCategories.concat(",");
+            }
+            let checkboxValue = checkbox.value;
+            checkedCategories = checkedCategories.concat(checkboxValue)            
+        }
+    }
+    return checkedCategories;
 }
 
 function getPreparation() {
@@ -78,7 +103,13 @@ function getPreparation() {
 }
 
 const NewRecipeForm = () => {
+    let navigate = useNavigate(); 
 
+    const routeChange = () =>{ 
+        let path = '/profile'; 
+        navigate(path);
+      }
+      
     return (
         <div className="newRecipeContainer">
             <h2>Fill in the fields for your new recipe!</h2>
@@ -101,13 +132,25 @@ const NewRecipeForm = () => {
                     <MinusSymbol onClickFunction={RemoveIngredientField}></MinusSymbol>
                 </div>
             </div>
+            <div className="categories" id="categoryContainer">
+                <h3 className="categoryLabel">Choose categories:</h3>
+                <input className="checkbox" id="breakfast" value="Breakfast" type="checkbox"/>
+                <label className="checkLabel" htmlFor="breakfast">Breakfast</label>
+                <input className="checkbox" id="simpleDish" value="Simple dish" type="checkbox" />
+                <label className="checkLabel" htmlFor="simpleDish">Simple dish</label>
+                <input className="checkbox" id="vegan" value="Vegan" type="checkbox" />
+                <label className="checkLabel" htmlFor="vegan">Vegan</label>
+                <input className="checkbox" id="italian" value="Italian" type="checkbox" />
+                <label className="checkLabel" htmlFor="italian">Italian</label>
+                <input className="checkbox" id="glutenfree" value="Gluten-free" type="checkbox" />
+                <label className="checkLabel" htmlFor="glutenfree">Gluten-free</label>
+            </div>
             <FormTextArea id={"preparations"} placeholder={"Preparations"}></FormTextArea>
             <div className="buttonContainer">
-                <Button id={'submitRecipe'} onClick={() => postRecipe(0,getTitle(),getImage(), getTimeEstimate(),getPreparation(),getIngredients()[0], [0,1]) } ></Button>
+                <FormButton label={'Submit'} id={'submitRecipe'} handleClick={() => (postRecipe(0,getTitle(),getImage(), getTimeEstimate(),getCategories(),getPreparation(),getIngredients()), routeChange())}></FormButton>
             <div/>
         </div>
         </div>
     )
 };
-
 export default NewRecipeForm;

@@ -22,7 +22,7 @@ ReactDOM.render(
     <Routes>
       <Route path="/" element={<NavBar />}>
         <Route path="profile" element={<Profile />} />
-        <Route path="home" element={<Home />} />
+        <Route path="" element={<Home />} />
         <Route path="profile" element={<Profile />} />
         <Route path="login" element={<LoginForm />} />
         <Route path="signup" element={<SignUpForm />} />
