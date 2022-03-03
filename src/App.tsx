@@ -5,7 +5,6 @@ import NavBar from './routes/Navbar';
 function App() {
   return (
     <div>
-
       <div>
         <LoginForm />
       </div>

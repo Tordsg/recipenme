@@ -1,176 +1,146 @@
 const axios = require('axios').default;
-
-interface userInfo{
-    emailToPost: string,
-    passwordToPost: string
-}
-
-function postUser(emailToPost:string, passwordToPost:string) {
-    console.log("hei");
+axios.defaults.baseURL = 'http://127.0.0.1:8000/app1';
+function postUser(firstNameToPost:string, lastNameToPost:string, emailToPost:string, passwordToPost:string) {
     console.log(emailToPost);
     console.log(passwordToPost);
-
-    axios.post('/user', {
-        email: emailToPost,
-        password: passwordToPost
-      })
-      .then(function (response: any) {
-        console.log(response);
-      })
-      .catch(function (error: any) {
-
-        console.log(error);
-      });
-}
-
-/*interface recipeInfo{
-  ownerToPost: #USER_TYPE#,
-  titleToPost: string, 
-  imageToPost: File,
-  timeEstimateToPost: string,
-  ingredientsToPost: Array<string>,
-  preparationToPost: string,
-}
-
-function postRecipe({ownerToPost, titleToPost, imageToPost, timeEstimateToPost, ingredientsToPost, preparationToPost}:recipeInfo) {
-
-  axios.post('/user', {
-      owner: ownerToPost,
-      title: titleToPost,
-      image: imageToPost, 
-      timeEstimate: timeEstimateToPost,
-      ingredients: ingredientsToPost,
-      preparations: preparationToPost
+    axios.post('/createUser', {
+      first_name: firstNameToPost,
+      last_name: lastNameToPost,
+      email: emailToPost,
+      password: passwordToPost
     })
     .then(function (response: any) {
       console.log(response);
     })
     .catch(function (error: any) {
-
       console.log(error);
     });
 }
 
-interface commentInfo{
-  ownerToPost: #USER_TYPE#,
-  commentToPost: string, 
-  recipeToPost: #RECIPE_TYPE#
+async function getUser(userUsername:string, userPassword:string) {
+  try {
+    const response = await axios.get('/user?email=' + userUsername + '/password=' + userPassword);
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+}
+async function getRecipe(recipeId: number){
+  try {
+    const response = await axios.get('/recipe/' + {recipeId})
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+}
+function postRecipe(ownerIDToPost:number, titleToPost:string, imageToPost:string, timeEstimateToPost:string, categoriesToPost:string, preparationToPost:string, ingredientsToPost:string) {
+  axios.post('/recipe', {
+    owner: ownerIDToPost,
+    title: titleToPost,
+    image: imageToPost, 
+    time_estimate: timeEstimateToPost,
+    preparation: preparationToPost,
+    ingredients: ingredientsToPost,
+    category: categoriesToPost
+  })
+  .then(function (response: any) {
+    console.log(response);
+  })
+  .catch(function (error: any) {
+    console.log(error);
+  });
 }
 
-function postComment({ownerToPost, commentToPost, recipeToPost}:commentInfo) {
-
-  axios.post('/user', {
-      owner: ownerToPost,
-      comment: commentToPost,
-      recipe: recipeToPost, 
-    })
-    .then(function (response: any) {
-      console.log(response);
-    })
-    .catch(function (error: any) {
-
-      console.log(error);
-    });
+async function getRecipiesFromCategory(category:string) {
+  try {
+    const response = await axios.get('/category=' + category);
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-interface likeInfo{
-  ownerToPost: #USER_TYPE#,
-  recipeToPost: #RECIPE_TYPE#
+function postComment(commentToPost:string, ownerIDToPost:number, recipeIDToPost:number) {
+  axios.post('/recipe', {
+    content: commentToPost,
+    owner: ownerIDToPost,
+    belongTo: recipeIDToPost, 
+  })
+  .then(function (response: any) {
+    console.log(response);
+  })
+  .catch(function (error: any) {
+
+    console.log(error);
+  });
 }
 
-function postLike({ownerToPost, recipeToPost}:likeInfo) {
+function postLike(ownerIDToPost:number, recipeIDToPost:number) {
+  axios.post('/recipe', {
+    userThatLikes: ownerIDToPost,
+    recipeThatIsLiked: recipeIDToPost, 
+  })
+  .then(function (response: any) {
+    console.log(response);
+  })
+  .catch(function (error: any) {
 
-  axios.post('/user', {
-      owner: ownerToPost,
-      recipe: recipeToPost, 
-    })
-    .then(function (response: any) {
-      console.log(response);
-    })
-    .catch(function (error: any) {
-
-      console.log(error);
-    });
+    console.log(error);
+  });
 }
 
-interface scoreInfo{
-  ownerToPost: #USER_TYPE#,
-  recipeToPost: #RECIPE_TYPE#
+function postScore(ownerIDToPost:number, scoreValue:number ,recipeIDToPost:number) {
+  axios.post('/recipe', {
+    owner: ownerIDToPost,
+    value: scoreValue,
+    recipe: recipeIDToPost, 
+  })
+  .then(function (response: any) {
+    console.log(response);
+  })
+  .catch(function (error: any) {
+
+    console.log(error);
+  });
 }
 
-function postScore({ownerToPost, recipeToPost}:scoreInfo) {
+function postFavorite(ownerIDToPost:number, recipeIDToPost:number) {
+  axios.post('/recipe', {
+    userThatFavorites: ownerIDToPost,
+    recipeThatIsFavorited: recipeIDToPost, 
+  })
+  .then(function (response: any) {
+    console.log(response);
+  })
+  .catch(function (error: any) {
 
-  axios.post('/user', {
-      owner: ownerToPost,
-      recipe: recipeToPost, 
-    })
-    .then(function (response: any) {
-      console.log(response);
-    })
-    .catch(function (error: any) {
-
-      console.log(error);
-    });
+    console.log(error);
+  });
 }
 
-interface favoriteInfo{
-  ownerToPost: #USER_TYPE#,
-  recipeToPost: #RECIPE_TYPE#
+function postFollower(followerIDToPost:number, followedIDToPost:number) {
+  axios.post('/profile', {
+    userThatFollows: followerIDToPost,
+    userGetsFollowed: followedIDToPost, 
+  })
+  .then(function (response: any) {
+    console.log(response);
+  })
+  .catch(function (error: any) {
+    console.log(error);
+  });
 }
 
-function postFavorite({ownerToPost, recipeToPost}:favoriteInfo) {
-
-  axios.post('/user', {
-      owner: ownerToPost,
-      recipe: recipeToPost, 
-    })
-    .then(function (response: any) {
-      console.log(response);
-    })
-    .catch(function (error: any) {
-
-      console.log(error);
-    });
+function postCategory(categoryToPost:string) {
+  axios.post('/', {
+    name: categoryToPost
+  })
+  .then(function (response: any) {
+    console.log(response);
+  })
+  .catch(function (error: any) {
+    console.log(error);
+  });
 }
 
-interface followerInfo{
-  followerToPost: #USER_TYPE#,
-  followedToPost: #USER_TYPE#
-}
-
-function postFollower({followerToPost, followedToPost}:followerInfo) {
-
-  axios.post('/user', {
-      follower: followerToPost,
-      followed: followedToPost, 
-    })
-    .then(function (response: any) {
-      console.log(response);
-    })
-    .catch(function (error: any) {
-
-      console.log(error);
-    });
-}
-
-interface categoryBelongingInfo{
-  recipeToPost: #RECIPE_TYPE#,
-  categoryToPost: #CATEGORY_TYPE#
-}
-
-function postCategoryBelonging({recipeToPost, categoryToPost}:categoryBelongingInfo) {
-  axios.post('/user', {
-      recipe: recipeToPost,
-      category: categoryToPost, 
-    })
-    .then(function (response: any) {
-      console.log(response);
-    })
-    .catch(function (error: any) {
-
-      console.log(error);
-    });
-}*/
-
-/*export { postUser, postRecipe, postComment, postLike, postScore, postFavorite, postFollower, postCategoryBelonging }*/
-export default postUser;
+export { postUser, getUser, postRecipe, postComment, postLike, postScore, postFavorite, postFollower, postCategory }

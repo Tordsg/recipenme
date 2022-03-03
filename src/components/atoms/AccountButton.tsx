@@ -1,23 +1,14 @@
 import './AccountButton.css';
 import React from 'react';
-import postUser from '../../client'
+import {postUser} from '../../client'
 
-interface button{
+interface IButton{
     buttonText: string;
+    handleClick: () => void;
 }
 
-function getEmail() {
-    let email = (document.getElementById("emailField") as HTMLInputElement).value;
-    return email;
-}
-
-function getPassword() {
-    let password = (document.getElementById("passwordField") as HTMLInputElement).value;
-    return password;
-}
-
-export default function LoginButton({buttonText}: button){
+export default function LoginButton({buttonText, handleClick}: IButton){
     return (
-        <button type='button' onClick={() => postUser(getEmail(), getPassword())} className="loginButton">{buttonText}</button>
+        <button type='button' onClick={handleClick} className="loginButton">{buttonText}</button>
     );
 }
