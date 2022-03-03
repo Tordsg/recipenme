@@ -2,7 +2,7 @@ from django import http
 from django.forms import JSONField
 from django.http import Http404, HttpResponse, HttpResponseNotFound, JsonResponse, request
 from django.shortcuts import get_object_or_404
-from .models import CreatePost, CreateUser, Recipe
+from .models import CreatePost, CreateUser, Recipe, User
 from .serializer import userSerializer, recipeSerializer
 import random
 import json
@@ -27,7 +27,7 @@ def recipe(request):
             return Http404
     elif(request.method=='POST'):
         a = json.loads(request.readline().decode('utf-8'))
-        post = CreatePost(a.get('owner'),a.get('title'),a.get('image'),a.get('time_estimate'),a.get('category'),a.get('preparation'),a.get('ingredients'))
+        post = CreatePost(a.get('owner'),a.get('title'),a.get('image'),a.get('time_estimate'),a.get('preparation'),a.get('ingredients'),a.get('category'))
         return HttpResponse(post.get_selfID())
 
 

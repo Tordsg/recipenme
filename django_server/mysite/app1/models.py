@@ -92,4 +92,3 @@ def CreatePost(user, title, bilde, tid, kategori, tilbredning, ingredienser):
     post = Recipe(recipeid = random.randint(1,10000),owner = user, title = title, image= bilde, time_estimate = tid, ingredients = ingredienser, preparation = tilbredning, category = kategori)
     post.save()
     return post
-

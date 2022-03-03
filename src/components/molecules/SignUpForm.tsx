@@ -16,11 +16,6 @@ function getLastName() {
     return lastName;
 }
 
-function getUsername() {
-    let username = (document.getElementById("usernameFieldSignUp") as HTMLInputElement).value;
-    return username;
-}
-
 function getEmail() {
     let email = (document.getElementById("emailFieldSignUp") as HTMLInputElement).value;
     return email;
@@ -33,7 +28,7 @@ function getPassword() {
 
 function handleSignUp(){
     postUser(getFirstName(), getLastName(), getEmail(), getPassword());
-    
+
 }
 
 export default function SignUpForm(){ 
@@ -43,7 +38,6 @@ export default function SignUpForm(){
             <form className='signUpForm'>
                 <AccountTextField id="firstNameFieldSignUp" placeholder={'First name'}/>
                 <AccountTextField id="lastNameFieldSignUp" placeholder={'Last name'}/>
-                <AccountTextField id="usernameFieldSignUp" placeholder={'Username'}/>
                 <AccountTextField id="emailFieldSignUp" placeholder={'Email'}/>
                 <AccountTextField id="passwordFieldSignUp" placeholder={'Password'}/>
                 <AccountTextField id="repeatPasswordFieldSignUp" placeholder={'Repeat password'}/>
