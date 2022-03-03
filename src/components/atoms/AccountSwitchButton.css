@@ -11,3 +11,7 @@
     font-size: 13px;
     margin-left: 20%;
 }
+
+.signUpButton:hover {
+    color: #73c05e;
+}

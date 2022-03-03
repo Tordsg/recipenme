@@ -83,7 +83,7 @@ export default function Profile(){
                     textColor="secondary"
                     indicatorColor="secondary"
                     >
-                        <Tab label="My recipes"/>
+                        <Tab label="My recipes" />
                         <Tab label="Saved recipes" />
                     </Tabs>
                 </Box>
