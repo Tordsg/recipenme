@@ -89,6 +89,5 @@ export default function Profile(){
                 </Box>
             </div>
         </div>
-        
     );
 }
