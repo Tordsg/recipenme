@@ -1,30 +1,18 @@
 import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
-/*import NavDropdown from 'react-bootstrap/Nav'
-import Nav from 'react-bootstrap/Nav' */
-import Dropdown from './Dropdown';
-import { useNavigate } from "react-router-dom";
+import { Outlet } from 'react-router-dom';
+import NavbarLogo from '../components/atoms/NavbarLogo';
+import NavbarTitle from '../components/atoms/NavbarTitle';
+import NavbarDropdown from '../components/molecules/NavbarDropdown';
 
 
 export default function Navbar(){
-    let navigate = useNavigate(); 
-
-    const routeChange = () =>{ 
-        let path = '/login'; 
-        navigate(path);
-      }
 
     return(
         <div>
             <nav>
-                <Dropdown />
-                <Link className = 'AppTitle' to = '/'>
-                    <h3>
-                        RecipeN´Me
-                    </h3>
-                </Link>
-                <button id='loginNav' onClick={routeChange}>Login</button>
-                <Link to = '/profile'>Profile</Link>
+                <NavbarLogo />
+                <NavbarTitle />
+                <NavbarDropdown />
             </nav>
             <Outlet/>
         </div>
