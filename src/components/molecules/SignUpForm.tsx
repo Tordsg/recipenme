@@ -4,7 +4,7 @@ import './LoginForm.css'
 import './SignUpForm.css'
 import AccountSwitchButton from '../atoms/AccountSwitchButton';
 import AccountTextField from '../atoms/AccountTextField';
-import { postUser } from '../../client';
+import { getUserReturn, postUserReturn } from '../../client';
 import { useNavigate } from 'react-router-dom';
 
 function getFirstName() {
@@ -17,6 +17,11 @@ function getLastName() {
     return lastName;
 }
 
+function getUsername() {
+    let username = (document.getElementById("usernameFieldSignUp") as HTMLInputElement).value;
+    return username;
+}
+
 function getEmail() {
     let email = (document.getElementById("emailFieldSignUp") as HTMLInputElement).value;
     return email;
@@ -27,30 +32,71 @@ function getPassword() {
     return password;
 }
 
-function handleSignUp(){
-    postUser(getFirstName(), getLastName(), getEmail(), getPassword());
+function getRepeatedPassword(){
+    let repeatedPassword = (document.getElementById("repeatPasswordFieldSignUp") as HTMLInputElement).value;
+    return repeatedPassword;
+}
 
+function checkPassword() {
+    const password1 = getPassword();
+    const password2 = getRepeatedPassword();
+
+    if(password1 === password2){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function checkIfEmpty(){
+    if (getFirstName() === '' || getLastName() === '' || getUsername() === '' || getPassword() === '' || getEmail() === ''){
+        return false;
+    }
+    return true;
 }
 
 export default function SignUpForm(){ 
     let navigate = useNavigate(); 
 
-    const routeChange = () =>{ 
-        let path = '/'; 
-        navigate(path);
-      }
+    const handleSignUp = async() => {
+        let foo = checkPassword();
+        const errorMessage = document.getElementById('errorMessageSignUp')!;
+        if(foo == false){
+            errorMessage.innerHTML = 'Passwords do not match';
+            errorMessage.style.display = 'block';
+        } else if(!checkIfEmpty()) {
+            errorMessage.innerHTML = 'Please fill out all fields';
+            errorMessage.style.display = 'block';
+        } else {
+            const userID = await postUserReturn(getFirstName(), getLastName(), getUsername(), getEmail(), getPassword());
     
+            if(userID === parseInt(userID, 10)){
+                errorMessage!.style.display= 'none';
+                const user = await getUserReturn(userID);
+                console.log('dette får du: ' + user);
+                localStorage.setItem('user', userID);
+                let path = '/'; 
+                navigate(path);
+            } else {
+                errorMessage!.style.display= 'block';
+                console.log('den mener at userID ikke er et tall');
+            }
+        }
+    }
+  
     return (
         <div className='signUpDiv'>
             <p className='header'>Sign up</p>
             <form className='signUpForm'>
-                <AccountTextField id="firstNameFieldSignUp" placeholder={'First name'}/>
-                <AccountTextField id="lastNameFieldSignUp" placeholder={'Last name'}/>
-                <AccountTextField id="emailFieldSignUp" placeholder={'Email'}/>
-                <AccountTextField id="passwordFieldSignUp" placeholder={'Password'}/>
-                <AccountTextField id="repeatPasswordFieldSignUp" placeholder={'Repeat password'}/>
+                <AccountTextField type={'text'} id="firstNameFieldSignUp" placeholder={'First name'}/>
+                <AccountTextField type={'text'} id="lastNameFieldSignUp" placeholder={'Last name'}/>
+                <AccountTextField type={'text'} id="usernameFieldSignUp" placeholder={'Username'}/>
+                <AccountTextField type={'text'} id="emailFieldSignUp" placeholder={'Email'}/>
+                <AccountTextField type={'password'} id="passwordFieldSignUp" placeholder={'Password'}/>
+                <AccountTextField type={'password'} id="repeatPasswordFieldSignUp" placeholder={'Repeat password'}/>
             </form>
-            <AccountButton handleClick={() => (handleSignUp(), routeChange())} buttonText='Sign up'/>
+            <p id="errorMessageSignUp" className='signUpError'>Username is already in use</p>
+            <AccountButton handleClick={() => handleSignUp()} buttonText='Sign up'/>
             <br />
             <AccountSwitchButton labelText='Already have an account?' buttonText='Sign in here' inputPath='/login'/>
         </div>

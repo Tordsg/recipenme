@@ -32,3 +32,12 @@
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
 }
+
+.loginError{
+    text-align: center;
+    font-size: 13px;
+    margin-top: 8%;
+    margin-bottom: -2vw;
+    color: red;
+    display: none;
+}

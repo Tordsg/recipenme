@@ -4,12 +4,13 @@ import './AccountTextField.css'
 interface inputPlaceholder {
     placeholder: string;
     id: string;
+    type: string;
 }
 
-export default function AccountTextField({placeholder, id}: inputPlaceholder){
+export default function AccountTextField({placeholder, id, type}: inputPlaceholder){
     return (
         <div>
-            <input type='text' id={id} placeholder={placeholder} className='textfield' />
+            <input type={type} id={id} placeholder={placeholder} className='textfield' />
             <br />
         </div>
     );

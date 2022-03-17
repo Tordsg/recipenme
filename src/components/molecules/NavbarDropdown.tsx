@@ -4,6 +4,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { useNavigate } from "react-router-dom";
+import { useEffect } from 'react';
 
 export default function NavbarDropdown() {
   let navigate = useNavigate(); 
@@ -12,6 +13,20 @@ export default function NavbarDropdown() {
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
+
+    const userID = Number(localStorage.getItem('user'));
+    let login = document.getElementById('loginCategory')!;
+    let settings = document.getElementById('settingsCategory')!;
+    let profile = document.getElementById('profileCategory')!;
+    if (userID != null && userID >= 0){
+      login.innerHTML = 'Sign out';
+      settings.style.display = 'block';
+      profile.style.display = 'block';
+    } else {
+      login.innerHTML = 'Login';
+      settings.style.display = 'none';
+      profile.style.display = 'none';
+    }
   };
 
   const handleClose = () => {
@@ -19,8 +34,15 @@ export default function NavbarDropdown() {
   };
 
   const routeChangeLogin = () =>{ 
-    let path = '/login'; 
-    navigate(path);
+    let login = document.getElementById('loginCategory')!;
+    if(login.innerHTML == 'Login'){
+      let path = '/login'; 
+      navigate(path);
+    } else {
+      localStorage.setItem('user', '-1');
+      let path = '';
+      navigate(path);
+    }
     setAnchorEl(null);
   }
 
@@ -58,9 +80,9 @@ export default function NavbarDropdown() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
         >
-        <MenuItem onClick={routeChangeProfile}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>Settings</MenuItem>
-        <MenuItem onClick={routeChangeLogin}>Login</MenuItem>
+        <MenuItem id = 'profileCategory' onClick={routeChangeProfile}>Profile</MenuItem>
+        <MenuItem id = 'settingsCategory' onClick={handleClose}>Settings</MenuItem>
+        <MenuItem id = 'loginCategory' onClick={routeChangeLogin}>Login</MenuItem>
         </Menu>
     </div>
   );

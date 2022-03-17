@@ -7,7 +7,7 @@ interface IButton{
     handleClick: () => void;
 }
 
-export default function LoginButton({buttonText, handleClick}: IButton){
+export default function AccountButton({buttonText, handleClick}: IButton){
     return (
         <button type='button' onClick={handleClick} className="loginButton">{buttonText}</button>
     );
