@@ -1,30 +1,33 @@
-import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
-/*import NavDropdown from 'react-bootstrap/Nav'
-import Nav from 'react-bootstrap/Nav' */
-import Dropdown from './Dropdown';
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
+import NavbarLogo from '../components/atoms/NavbarLogo';
+import NavbarTitle from '../components/atoms/NavbarTitle';
+import NavbarDropdown from '../components/molecules/NavbarDropdown';
 
 
 export default function Navbar(){
-    let navigate = useNavigate(); 
 
-    const routeChange = () =>{ 
-        let path = '/login'; 
-        navigate(path);
-      }
+    /*
+    useEffect(() => {
+        //localStorage.setItem('user', '-1')
+        const loggedInUser:any = Number(localStorage.getItem('user'));
+        if (loggedInUser > -1 && loggedInUser != null) {
+            console.log(true);
+            const button = document.getElementById('loginNav')!;
+            button.innerHTML = "Sign out";
+        } else {
+            console.log(false);
+            const button = document.getElementById('loginNav')!;
+            button.innerHTML = "Login";
+        }
+    }) */
 
     return(
         <div>
             <nav>
-                <Dropdown />
-                <Link className = 'AppTitle' to = '/'>
-                    <h3>
-                        RecipeN´Me
-                    </h3>
-                </Link>
-                <button id='loginNav' onClick={routeChange}>Login</button>
-                <Link to = '/profile'>Profile</Link>
+                <NavbarLogo />
+                <NavbarTitle />
+                <NavbarDropdown />
             </nav>
             <Outlet/>
         </div>

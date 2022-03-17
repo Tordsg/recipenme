@@ -8,6 +8,9 @@ import AddIcon from '@mui/icons-material/Add';
 import ProfileRecipeFeed from './ProfileRecipeFeed';
 import { LocalActivityTwoTone } from '@mui/icons-material';
 import { useNavigate } from "react-router-dom";
+import { useEffect } from 'react';
+import { getUser, getUserReturn } from '../client';
+import { isReturnStatement } from 'typescript';
 
 
 // Source for TabPanelProps interface, TabPanel function is:
@@ -34,10 +37,32 @@ function TabPanel(props: TabPanelProps) {
 }
 
 
+async function SetName() {
+    console.log('jeg kjører');
+    let userData: any;
+    async function GetUserData() {
+        const loggedInUser: any = localStorage.getItem('user');
+        if (loggedInUser > -1 && loggedInUser != null) {
+            const userID = loggedInUser;
+            userData = await getUserReturn(userID);
+    }
+
+    userData = await GetUserData();
+    useEffect(() => {
+        console.log(userData);
+        const objList = JSON.parse(userData);
+        const userFirstName = objList.first_name;
+        const userLastName = objList.last_name;
+        const newName = userFirstName + ' ' + userLastName;
+
+        let name = document.getElementById('name')!;
+        name.innerHTML = newName;
+    })
+    }
+}
+
 
 export default function Profile(){
-    
-    const name = 'Navn Navnesen';
 
     /* Handlers for tab */
     const [value, setValue] = React.useState(0);
@@ -66,7 +91,7 @@ export default function Profile(){
         <div className="wrapper">
             <div className="Biography">
                 <div className="UserName"> 
-                    <h1> {name} </h1>
+                    <h1 id='name' onLoad={SetName}></h1>
                 </div>
                 <div className="NewRecipe">
                     <IconButton aria-label="add_circle" color="secondary" onClick={routeChange}>
@@ -89,6 +114,5 @@ export default function Profile(){
                 </Box>
             </div>
         </div>
-        
     );
 }

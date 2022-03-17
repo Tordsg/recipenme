@@ -11,8 +11,6 @@ import Home from './routes/Home';
 import reportWebVitals from './reportWebVitals';
 import NavBar from './routes/Navbar';
 import LoginForm from './components/molecules/LoginForm';
-import LoginPage from './routes/LoginPage';
-import RegisterPage from './routes/RegisterPage';
 import NewRecipeForm from './components/molecules/NewRecipeForm';
 import SignUpForm from './components/molecules/SignUpForm';
 
