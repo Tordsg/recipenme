@@ -1,16 +1,18 @@
-from django.db import models
+from django.db import connection, models
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from pyexpat import model
 from statistics import mode
 import random
 
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+
 class Follower(models.Model):
 	userThatFollows = models.ForeignKey(User, on_delete = models.CASCADE, related_name="userThatFollows")
 	userGetsFollowed = models.ForeignKey(User, on_delete = models.CASCADE, related_name="userGetsFollowed")
 
 class Category(models.Model):
-    
     name = models.CharField(max_length = 50)
 
 
@@ -65,21 +67,23 @@ class Favorite(models.Model):
 
 #admin.site.register(User, UserAdmin)
 
-def CreateUser(brukernavn, epost, passord):
-    #get_user_model().objects.create_user(brukernavn, bursdag, passord)
-    user = authenticate(username= brukernavn, password= passord)
-    if user is not None:
-        print("this user already exsist")
-    else:
-        bruker = User.objects.create_user(brukernavn, epost, passord)
-        return bruker
+def CreateUser(username, email, password, first_name, last_name):
+    try:
+        obj = get_object_or_404(User, username = username)
+        return 0;
+    except:
+        user = User.objects.create_user(username, email, password)
+        user.first_name = first_name
+        user.last_name = last_name
+        user.save()
+        return 1;
     
 def Login(brukernavn, passord):
     user = authenticate(username= brukernavn, password= passord)
     if user is not None:
         return user
     else:
-        print("passord eller brukernavn er feil")
+        print("rip")
 
 def GetPosts_User(username):
     liste =[]

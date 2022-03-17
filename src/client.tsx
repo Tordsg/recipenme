@@ -1,30 +1,84 @@
+import { isInt16Array } from "util/types";
+
 const axios = require('axios').default;
 axios.defaults.baseURL = 'http://127.0.0.1:8000/app1';
-function postUser(firstNameToPost:string, lastNameToPost:string, emailToPost:string, passwordToPost:string) {
-    console.log(emailToPost);
-    console.log(passwordToPost);
-    axios.post('/createUser', {
-      first_name: firstNameToPost,
-      last_name: lastNameToPost,
-      email: emailToPost,
-      password: passwordToPost
-    })
-    .then(function (response: any) {
-      console.log(response);
-    })
-    .catch(function (error: any) {
-      console.log(error);
-    });
+let userID: any;
+let userData: any;
+
+async function postUser(firstNameToPost:string, lastNameToPost:string, usernameToPost:string, emailToPost:string, passwordToPost:string) {
+    try {
+      const result = await axios.post('/createUser', {
+        first_name: firstNameToPost,
+        last_name: lastNameToPost,
+        username: usernameToPost,
+        email: emailToPost,
+        password: passwordToPost
+      })
+      .then((response: any) => {
+        console.log(response);
+        userID = response.data;
+          if (userID === parseInt(userID, 10)) {
+            return userID;
+          } else {
+            return -1;
+          }
+      });
+      console.log(result);
+    } catch(e) {
+      console.log(e);
+    };
 }
 
-async function getUser(userUsername:string, userPassword:string) {
+async function postUserReturn(firstNameToPost:string, lastNameToPost:string, usernameToPost:string, emailToPost:string, passwordToPost:string){
+  await postUser(firstNameToPost, lastNameToPost, usernameToPost, emailToPost, passwordToPost);
+  console.log(10)
+  return userID;
+}
+
+async function getUser(userID : number) {
   try {
-    const response = await axios.get('/user?email=' + userUsername + '/password=' + userPassword);
+    const response = await axios.get('/user/' + userID)
+    .then((result: any) => {
+      userData = JSON.stringify(result.data);
+      return userData;
+    })
     console.log(response);
   } catch (error) {
     console.log(error);
   }
 }
+
+async function getUserReturn(userID : number) {
+  await getUser(userID);
+  return userData;
+}
+
+async function loginUser(username:string, password:string){
+  try {
+    const response = await axios.post('/user', {
+      username: username, 
+      password: password
+    }) 
+    .then((result: any) => {
+        userID = result.data;
+        if (userID === parseInt(userID, 10)) {
+          return userID;
+        } else {
+          return -1;
+        }
+      });
+    console.log(response);
+    //return 1;
+  } catch(e) {
+    console.log(e);
+  }
+}
+
+async function loginReturn(username:string, password:string){
+  await loginUser(username, password);
+  return userID;
+}
+
 async function getRecipe(recipeId: number){
   try {
     const response = await axios.get('/recipe/' + {recipeId})
@@ -33,6 +87,7 @@ async function getRecipe(recipeId: number){
     console.log(error);
   }
 }
+
 function postRecipe(ownerIDToPost:number, titleToPost:string, imageToPost:string, timeEstimateToPost:string, categoriesToPost:string, preparationToPost:string, ingredientsToPost:string) {
   axios.post('/recipe', {
     owner: ownerIDToPost,
@@ -143,4 +198,4 @@ function postCategory(categoryToPost:string) {
   });
 }
 
-export { postUser, getUser, postRecipe, postComment, postLike, postScore, postFavorite, postFollower, postCategory }
+export { postUser, postUserReturn, getUser, getUserReturn, postRecipe, postComment, postLike, postScore, postFavorite, postFollower, postCategory, loginUser, loginReturn }
