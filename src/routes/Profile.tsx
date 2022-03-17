@@ -12,7 +12,6 @@ import { useEffect } from 'react';
 import { getUser, getUserReturn } from '../client';
 import { isReturnStatement } from 'typescript';
 
-
 // Source for TabPanelProps interface, TabPanel function is:
 // https://mui.com/components/tabs/#BasicTabs.tsx
 
@@ -111,6 +110,12 @@ export default function Profile(){
                         <Tab label="My recipes" />
                         <Tab label="Saved recipes" />
                     </Tabs>
+                    <TabPanel value={value} index={0}>
+                    Item One
+                    </TabPanel>
+                    <TabPanel value={value} index={1}>
+                    Item Two
+                    </TabPanel>
                 </Box>
             </div>
         </div>

@@ -1,12 +1,42 @@
 import { Box, createTheme, Tab, Tabs, ThemeProvider } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import './FrontPageTabs.css';
 //import { red } from '@material-ui/core/colors';
 import FormTextField from '../atoms/FormTextField';
 import { getJSDocOverrideTagNoCache } from 'typescript';
 import { lineHeight, width } from '@mui/system';
+import MainBody from '../../tempComponents/MainBody';
+import { getRecipe, getRecipeReturn } from '../../client';
+import { useTheme } from '@emotion/react';
+
+
+
+
+interface TabPanelProps {
+    children?: React.ReactNode;
+    index: number;
+    value: number;
+}
+  
+function TabPanel(props: TabPanelProps) {
+    const { children, value, index, ...other } = props;
+  
+    return (
+        <div>
+            {
+            value === index && (
+            <h1>{children}</h1>
+            )
+            }
+        </div>
+    );
+}
+
+
+
+
 
 function Search() {
     let searchValue = (document.getElementById('searchbar') as HTMLInputElement).value;
@@ -127,6 +157,22 @@ const FrontPageTabs = () => {
         }
       });
 
+      async function setRecipeName() {  
+        console.log('jeg kjører');
+        let recipeData: any;
+
+        recipeData = await getRecipeReturn(7407);
+        useEffect(() =>  {
+            const recipelist = JSON.parse(recipeData);
+            const recipeName = recipelist.title;
+
+            let recipe = document.getElementById('recipe');
+            recipe.innerHTML = recipeName;
+        })
+      }
+
+      
+
     return (
         <div id="tabID" className="tabs">
             <Box sx={{ width: '100%' }}>
@@ -139,12 +185,32 @@ const FrontPageTabs = () => {
                         <Tab label="Italian" />
                         <Tab label="Gluten-free" />
                     </Tabs>
+                    <TabPanel value={value} index={0}>
+                        All recipes here
+                    </TabPanel>
+                    <TabPanel value={value} index={1}>
+                        Breakfast recipes here
+                    </TabPanel>
+                    <TabPanel value={value} index={2}>
+                        
+                        <h1>Simple dishes here</h1>
+                    </TabPanel>
+                    <TabPanel value={value} index={3}>
+                        Vegan disher her
+                    </TabPanel>
+                    <TabPanel value={value} index={4}>
+                        Italian dishes
+                        {setRecipeName()}
+                    </TabPanel>
+                    <TabPanel value={value} index={5}>
+                        Gluten free here
+                    </TabPanel>
                 </ThemeProvider>
             </Box>
-            <div id="searchbarContainerID">
+            {/* <div id="searchbarContainerID">
                 <input placeholder="Search" id="searchbar" type="text"/>
                 <button onClick={() => Search()} id="searchButton"><ThemeProvider theme={themeIcon}><SearchIcon fontSize='small'></SearchIcon></ThemeProvider></button>
-            </div>
+            </div> */}
         </div>
     ); 
 };

@@ -7,7 +7,7 @@ export default function Home() {
         <div className='parent'>
             <div className='topBar'>
             <FrontPageTabs></FrontPageTabs>
-            <MainBody />
+            {/* <MainBody /> */}
             </div>
             <div className='feed'>
             </div>
