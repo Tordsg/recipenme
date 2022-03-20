@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from 'react';
 import { getUser, getUserReturn } from '../client';
 import { isReturnStatement } from 'typescript';
+import ProfileRecipes from './ProfileRecipeFeed';
+import TitlebarImageList from '../components/molecules/imagelistTest';
 
 // Source for TabPanelProps interface, TabPanel function is:
 // https://mui.com/components/tabs/#BasicTabs.tsx
@@ -111,7 +113,7 @@ export default function Profile(){
                         <Tab label="Saved recipes" />
                     </Tabs>
                     <TabPanel value={value} index={0}>
-                    Item One
+                    {TitlebarImageList(itemData)}
                     </TabPanel>
                     <TabPanel value={value} index={1}>
                     Item Two
@@ -121,3 +123,23 @@ export default function Profile(){
         </div>
     );
 }
+const itemData = [
+    {
+      img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
+      title: 'Breakfast',
+      author: '@bkristastucchio',
+      // rows: 6,
+      // cols: 6,
+      // featured: true,
+    }, 
+    {
+        img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
+        title: 'Burger',
+        author: '@rollelflex_graphy726',
+      },
+      {
+        img: 'https://images.unsplash.com/photo-1589118949245-7d38baf380d6',
+      title: 'Bike',
+      author: '@southside_customs',
+      },
+    ]
