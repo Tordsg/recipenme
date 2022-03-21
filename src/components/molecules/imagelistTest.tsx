@@ -10,10 +10,7 @@ import InfoIcon from '@mui/icons-material/Info';
 
 export default function TitlebarImageList(itemdata: Array<any>) {
   return (
-    <ImageList cols = {3} sx={{ width: '70%' , height: '100%', margin: 'auto', marginTop: '3vw', padding: '0px', }}>
-      {/* <ImageListItem key="Subheader" cols={2}>
-        <ListSubheader component="div">Italian </ListSubheader>
-      </ImageListItem> */}
+    <ImageList cols = {3} sx={{ width: '70%' , height: '100%', margin: 'auto', marginTop: '3vw', padding: '0px', }} >
       {itemdata.map((item) => (
         <ImageListItem key={item.img}>
           <img
@@ -41,5 +38,3 @@ export default function TitlebarImageList(itemdata: Array<any>) {
   );
 }
 
-// src={`${item.img}?w=248&fit=crop&auto=format`}
-// srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}

@@ -1,4 +1,4 @@
-import { Box, createTheme, Tab, Tabs, ThemeProvider } from '@mui/material';
+import { Box, createTheme, ImageList, Tab, Tabs, ThemeProvider } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import React, { useEffect } from 'react';
 import { styled } from '@mui/material/styles';
@@ -34,22 +34,7 @@ function TabPanel(props: TabPanelProps) {
         </div>
     );
 }
-//just to test some stuff
-// async function SetRecipe() {  
-//     console.log('jeg kjører');
-//     let recipeData: any;
-//     async function GetRecipeData() {
-//         recipeData = await getRecipeReturn(7407);
-//     }
-//     recipeData = await GetRecipeData;
-//     useEffect(() =>  {
-//         const recipelist = JSON.parse(recipeData);
-//         const recipeName = recipelist.title;
 
-//         let recipetitle = document.getElementById('recipetitle')!;
-//         recipetitle.innerHTML = recipeName;
-//     })
-//   }
 
 
 
@@ -191,8 +176,12 @@ const FrontPageTabs = () => {
                         <Tab label="Italian" />
                         <Tab label="Gluten-free" />
                     </Tabs>
+                    <div id="searchbarContainerID">
+                      <input placeholder="Search" id="searchbar" type="text"/>
+                      <button onClick={() => Search()} id="searchButton"><ThemeProvider theme={themeIcon}><SearchIcon fontSize='small'></SearchIcon></ThemeProvider></button>
+                      </div>
                     <TabPanel value={value} index={0}>
-                      {TitlebarImageList(itemData)}
+                    {TitlebarImageList(breakfastData)}
                     </TabPanel>
                     <TabPanel value={value} index={1}>
                         {TitlebarImageList(breakfastData)}
@@ -214,11 +203,9 @@ const FrontPageTabs = () => {
                         {TitlebarImageList(glutenFreeData)}
                     </TabPanel>
                 </ThemeProvider>
+                
             </Box>
-            {<div id="searchbarContainerID">
-                <input placeholder="Search" id="searchbar" type="text"/>
-                <button onClick={() => Search()} id="searchButton"><ThemeProvider theme={themeIcon}><SearchIcon fontSize='small'></SearchIcon></ThemeProvider></button>
-            </div> }
+            
         </div>
     ); 
 };
@@ -259,6 +246,9 @@ const glutenFreeData = [
       title: 'Lime-Basil Chicken',
       author: '@rollelflex_graphy726',
     },
+    {img: 'https://res.cloudinary.com/norgesgruppen/images/c_scale,dpr_auto,f_auto,q_auto:eco,w_1600/tulcxcntmwnys5ndgqvk/pasta-alfredo',
+  title: 'Pasta',
+  author: '@rollelflex_graphy726',},
 ];
 
 const itemData = [

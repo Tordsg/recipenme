@@ -94,17 +94,7 @@ async function getRecipe(recipeId : number){
     console.log(error);
   }
 }
-  // try {
-  //   const response = await axios.get('/recipe/' + {recipeId})
-  //   .then((result: any) => {
-  //     recipeData = JSON.stringify(result.data);
-  //     return recipeData;
-  //   })
-  //   console.log(response);
-  // } catch (error) {
-  //   console.log(error);
-  // }
-// }
+ 
 async function getRecipeReturn(recipeId : number) {
   await getRecipe(recipeId);
   return recipeData;
