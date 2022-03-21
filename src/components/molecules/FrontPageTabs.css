@@ -1,7 +1,7 @@
 #searchbarContainerID {
     position: relative;
     margin: auto;
-    display: none;
+    display: block;
     width: 47vw;
 }
 #searchbar {

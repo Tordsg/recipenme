@@ -4,6 +4,9 @@ const axios = require('axios').default;
 axios.defaults.baseURL = 'http://127.0.0.1:8000/app1';
 let userID: any;
 let userData: any;
+let recipeData: any;
+let recipeId: any;
+
 
 async function postUser(firstNameToPost:string, lastNameToPost:string, usernameToPost:string, emailToPost:string, passwordToPost:string) {
     try {
@@ -79,13 +82,22 @@ async function loginReturn(username:string, password:string){
   return userID;
 }
 
-async function getRecipe(recipeId: number){
+async function getRecipe(recipeId : number){
   try {
     const response = await axios.get('/recipe/' + {recipeId})
+    .then((result: any) => {
+      recipeData = JSON.stringify(result.data);
+      return recipeData;
+    })
     console.log(response);
   } catch (error) {
     console.log(error);
   }
+}
+ 
+async function getRecipeReturn(recipeId : number) {
+  await getRecipe(recipeId);
+  return recipeData;
 }
 
 function postRecipe(ownerIDToPost:number, titleToPost:string, imageToPost:string, timeEstimateToPost:string, categoriesToPost:string, preparationToPost:string, ingredientsToPost:string) {
@@ -198,4 +210,4 @@ function postCategory(categoryToPost:string) {
   });
 }
 
-export { postUser, postUserReturn, getUser, getUserReturn, postRecipe, postComment, postLike, postScore, postFavorite, postFollower, postCategory, loginUser, loginReturn }
+export { postUser, postUserReturn, getUser, getUserReturn, postRecipe, postComment, postLike, postScore, postFavorite, postFollower, postCategory, loginUser, loginReturn, getRecipe, getRecipeReturn}
