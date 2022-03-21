@@ -192,25 +192,26 @@ const FrontPageTabs = () => {
                         <Tab label="Gluten-free" />
                     </Tabs>
                     <TabPanel value={value} index={0}>
+                      {TitlebarImageList(itemData)}
                     </TabPanel>
                     <TabPanel value={value} index={1}>
-                        Breakfast recipes here
+                        {TitlebarImageList(breakfastData)}
                     </TabPanel>
                     <TabPanel value={value} index={2}>
                         
-                        <h1>Simple dishes here</h1>
+                      {TitlebarImageList(simpleDishData)}
                     </TabPanel>
                     <TabPanel value={value} index={3}>
-                        Vegan disher her
+                        {TitlebarImageList(veganData)}
                     </TabPanel>
                     <TabPanel value={value} index={4}>
                         
                         
-                            {TitlebarImageList(itemData)}
+                            {TitlebarImageList(italianData)}
                         
                     </TabPanel>
                     <TabPanel value={value} index={5}>
-                        Gluten free here
+                        {TitlebarImageList(glutenFreeData)}
                     </TabPanel>
                 </ThemeProvider>
             </Box>
@@ -221,6 +222,44 @@ const FrontPageTabs = () => {
         </div>
     ); 
 };
+
+const breakfastData = [
+  {
+    img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
+      title: 'Breakfast',
+      author: '@bkristastucchio',
+  },
+];
+
+const simpleDishData = [
+  {img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
+  title: 'Burger',
+  author: '@rollelflex_graphy726',},
+];
+
+const veganData = [
+ {img: 'https://wellandfull.com/wp-content/uploads/2016/02/WellandFull-4-21.jpg',
+ title: 'Buddha Bowl',
+ author: '@SivertEggen',},
+
+ {img: 'https://thehappypear.ie/wp-content/uploads/2020/09/100-wholefood-burger-e1606932765621.jpg',
+ title: 'Vegan Burger',
+ author: '@SynneØdegaard', },
+];
+
+const italianData = [
+  {img: 'https://res.cloudinary.com/norgesgruppen/images/c_scale,dpr_auto,f_auto,q_auto:eco,w_1600/tulcxcntmwnys5ndgqvk/pasta-alfredo',
+  title: 'Pasta',
+  author: '@rollelflex_graphy726',},
+];
+
+const glutenFreeData = [
+    {
+      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ4K4oefu1a67hPSwxkRkJzlF-t7oeDC0JZqhoxbPEpgvoJKebcr0vl_ZwRJoFhczNxTo&usqp=CAU',
+      title: 'Lime-Basil Chicken',
+      author: '@rollelflex_graphy726',
+    },
+];
 
 const itemData = [
     {

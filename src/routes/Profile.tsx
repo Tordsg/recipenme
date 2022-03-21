@@ -113,7 +113,7 @@ export default function Profile(){
                         <Tab label="Saved recipes" />
                     </Tabs>
                     <TabPanel value={value} index={0}>
-                    {TitlebarImageList(itemData)}
+                    {TitlebarImageList(myRecipeData)}
                     </TabPanel>
                     <TabPanel value={value} index={1}>
                     Item Two
@@ -123,7 +123,7 @@ export default function Profile(){
         </div>
     );
 }
-const itemData = [
+const myRecipeData = [
     {
       img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
       title: 'Breakfast',
