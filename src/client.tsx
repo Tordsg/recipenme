@@ -4,6 +4,7 @@ const axios = require('axios').default;
 axios.defaults.baseURL = 'http://127.0.0.1:8000/app1';
 let userID: any;
 let userData: any;
+let recipeData: any;
 
 async function postUser(firstNameToPost:string, lastNameToPost:string, usernameToPost:string, emailToPost:string, passwordToPost:string) {
     try {
@@ -47,6 +48,30 @@ async function getUser(userID : number) {
     console.log(error);
   }
 }
+async function getRecipe(recipeID: string){
+  try {
+    const response = await axios.get('/recipe/' + recipeID)
+    .then((result: any) => {
+      recipeData = JSON.stringify(result.data);
+      return recipeData;
+    })
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+}
+async function getRecipeFromUser(userID: string){
+  try {
+    const response = await axios.get('/getUserRecipes/' + userID)
+    .then((result: any) => {
+      userData = JSON.stringify(result.data);
+      return result.data;
+    })
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 async function getUserReturn(userID : number) {
   await getUser(userID);
@@ -79,25 +104,30 @@ async function loginReturn(username:string, password:string){
   return userID;
 }
 
-async function getRecipe(recipeId: number){
+async function getRecipes(owner: string){
   try {
-    const response = await axios.get('/recipe/' + {recipeId})
+    const response = await axios.get('/recipe/' + {owner})
+    .then((result: any) => {
+      userData = JSON.stringify(result.data);
+      return userData;
+    })
     console.log(response);
   } catch (error) {
     console.log(error);
   }
 }
 
-function postRecipe(ownerIDToPost:number, titleToPost:string, imageToPost:string, timeEstimateToPost:string, categoriesToPost:string, preparationToPost:string, ingredientsToPost:string) {
-  axios.post('/recipe', {
-    owner: ownerIDToPost,
-    title: titleToPost,
-    image: imageToPost, 
-    time_estimate: timeEstimateToPost,
-    preparation: preparationToPost,
-    ingredients: ingredientsToPost,
-    category: categoriesToPost
-  })
+function postRecipe(ownerIDToPost:string, titleToPost:string, imageToPost:File, timeEstimateToPost:string, categoriesToPost:string, preparationToPost:string, ingredientsToPost:string) {
+  const form = new FormData();
+  form.append('owner_id', ownerIDToPost)
+  form.append('title',titleToPost)
+  form.append('image',imageToPost)
+  form.append('time_estimate', timeEstimateToPost)
+  form.append('preparation', preparationToPost)
+  form.append('ingredients', ingredientsToPost)
+  form.append('scoreOfRecipe', '0')
+  form.append('category', categoriesToPost)
+  axios.post('/postRecipe', form)
   .then(function (response: any) {
     console.log(response);
   })
@@ -198,4 +228,4 @@ function postCategory(categoryToPost:string) {
   });
 }
 
-export { postUser, postUserReturn, getUser, getUserReturn, postRecipe, postComment, postLike, postScore, postFavorite, postFollower, postCategory, loginUser, loginReturn }
+export { getRecipeFromUser, getRecipe, postUser, postUserReturn, getUser, getUserReturn, postRecipe, postComment, postLike, postScore, postFavorite, postFollower, postCategory, loginUser, loginReturn }
