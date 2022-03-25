@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEventHandler, useState } from 'react';
 import './NewRecipeForm.css';
 import FormButton from '../atoms/FormButton';
 import FormTextField from '../atoms/FormTextField';
@@ -57,8 +57,8 @@ function getTimeEstimate() {
 }
 
 function getImage() {
-    let image = (document.getElementById("file") as HTMLInputElement).value;
-    return image;
+    let fil = (document.getElementById("file") as HTMLInputElement).files.item(0);
+    return fil
 }
 
 function getIngredients() {
@@ -117,7 +117,7 @@ const NewRecipeForm = () => {
             <FormTextField id={"timeEstimate"} placeholder={"Time estimate"}></FormTextField>
             <div className="fileContainer">
                 <label className="fileLabel" htmlFor="file">Choose an image
-                    <input className="fileInput" id="file" type="file" border-style="none" />
+                    <input className="fileInput" id="file" name = 'picture' type="File" accept = 'image/png, image/jpeg' border-style="none"/>
                 </label> <br />
             </div>
             <h3 className="ingredientsLabel">Ingredients:</h3>
@@ -147,7 +147,7 @@ const NewRecipeForm = () => {
             </div>
             <FormTextArea id={"preparations"} placeholder={"Preparations"}></FormTextArea>
             <div className="buttonContainer">
-                <FormButton label={'Submit'} id={'submitRecipe'} handleClick={() => (postRecipe(0,getTitle(),getImage(), getTimeEstimate(),getCategories(),getPreparation(),getIngredients()), routeChange())}></FormButton>
+                <FormButton label={'Submit'} id={'submitRecipe'} handleClick={() => (postRecipe(localStorage.getItem('user'),getTitle(),getImage(), getTimeEstimate(),getCategories(),getPreparation(),getIngredients()), routeChange())}></FormButton>
             <div/>
         </div>
         </div>

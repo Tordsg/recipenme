@@ -17,29 +17,17 @@ class Category(models.Model):
 
 
 class Recipe(models.Model):
-    recipeid = models.IntegerField(unique=True, primary_key=True, default = 0) #trenger vel ikke id?
-    owner = models.TextField(null=True) #hvorfor er ikke dette en fremmednøkkel til user?
+    owner_id = models.ForeignKey(User, on_delete = models.CASCADE, related_name="userThatOwns")
     title = models.CharField(max_length = 100)
-    image = models.ImageField(blank = True, null = True)
-    time_estimate = models.CharField(max_length = 50)
-    preparation = models.TextField(null=True)
+    image = models.ImageField(upload_to='posted_images/', blank = True, null = True)
+    time_estimate = models.CharField(max_length = 50, blank=True)
+    preparation = models.TextField(null=True, blank = True)
     ingredients = models.TextField(blank = True, null = True) #Split the ingredients on ","
-    scoreOfRecipe = models.FloatField(default=None, null=True)
-    category = models.TextField() #Split the categories on ","
-    
-    def get_self(self):
-        return self
-    def get_selfID(self):
-        return self.recipeid
-    def get_userid(self):
-        return self.owner
-    def get_rest(self):
-        return self.title, self.image, self.time_estimate, self.preparation, self.scoreOfRecipe, self.category
+    scoreOfRecipe = models.FloatField(default=None, null=True, blank=True)
+    category = models.TextField(blank = True) #Split the categories on ","
 class Comment(models.Model):
-    #commentid = models.IntegerField(unique=True, nullable=False, primary_key=True)
     content = models.TextField()
-    owner = models.ForeignKey(User, on_delete = models.CASCADE)
-    belongTo = models.ForeignKey(Recipe, on_delete = models.CASCADE)
+    belongTo = models.ForeignKey(Recipe, on_delete = models.CASCADE, related_name = 'commentedRecipe')
 
 class Like(models.Model):
     userThatLikes = models.ForeignKey(User, on_delete = models.CASCADE)
@@ -93,6 +81,6 @@ def GetPosts_User(username):
     return liste
         
 def CreatePost(user, title, bilde, tid, kategori, tilbredning, ingredienser):
-    post = Recipe(recipeid = random.randint(1,10000),owner = user, title = title, image= bilde, time_estimate = tid, ingredients = ingredienser, preparation = tilbredning, category = kategori)
+    post = Recipe(owner_id = user, title = title, image= bilde, time_estimate = tid, ingredients = ingredienser, preparation = tilbredning, category = kategori)
     post.save()
     return post
