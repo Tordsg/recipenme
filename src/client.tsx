@@ -102,6 +102,36 @@ async function loginReturn(username:string, password:string){
   return userID;
 }
 
+function UpdateProfile(idToPost: number, firstNameToPost:string, lastNameToPost:string, usernameToPost:string, emailToPost:string, passwordToPost:string) {
+  console.log("wiwo2");
+  try {
+    console.log("wiwo");
+    axios.post('/updateProfile', {
+      userid: idToPost,
+      first_name: firstNameToPost,
+      last_name: lastNameToPost,
+      username: usernameToPost,
+      email: emailToPost,
+      password: passwordToPost
+    })
+    .then((response: any) => {
+      console.log("hei2");
+
+      console.log(response);
+    /*  userID = response.data;
+        if (userID === parseInt(userID, 10)) {
+          return userID;
+        } else {
+          return -1;
+        } */
+    });
+  } catch(e) {
+    console.log("hei");
+    console.log(e);
+  };
+}
+
+
 async function getRecipes(owner: string){
   try {
     const response = await axios.get('/recipe/' + {owner})
@@ -226,4 +256,4 @@ function postCategory(categoryToPost:string) {
   });
 }
 
-export { getRecipeFromUser,getRecipes, getRecipe, postUser, postUserReturn, getUser, getUserReturn, postRecipe, postComment, postLike, postScore, postFavorite, postFollower, postCategory, loginUser, loginReturn }
+export { getRecipeFromUser,getRecipes, getRecipe, postUser, postUserReturn, getUser, getUserReturn, postRecipe, postComment, postLike, postScore, postFavorite, postFollower, postCategory, loginUser, loginReturn, UpdateProfile }

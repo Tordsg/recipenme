@@ -14,6 +14,7 @@ urlpatterns = [
     path('createUser/<int:pk>', views.createUser),
     path('postRecipe', views.postRecipe),
     path('recipe/<int:pk>', views.recipe, name = 'getRecipe'),
+    path('updateProfile', views.updateUser),
     path('getUserRecipes/<int:pk>', views.getUserRecipes, name = 'getUserRecipes'),
 ] 
 if settings.DEBUG:

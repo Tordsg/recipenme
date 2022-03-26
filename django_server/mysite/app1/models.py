@@ -84,3 +84,16 @@ def CreatePost(user, title, bilde, tid, kategori, tilbredning, ingredienser):
     post = Recipe(owner_id = user, title = title, image= bilde, time_estimate = tid, ingredients = ingredienser, preparation = tilbredning, category = kategori)
     post.save()
     return post
+
+def UpdateProfile(userid, username1, email1, password1, first_name1, last_name1):
+    print(userid)
+    user= get_object_or_404(User, pk=userid)
+    user.username = username1
+    print("denne vil vi at ikke skal være null" + user.username)
+    print("denne vil vi også at ikke skal være null" + username1)
+
+    user.email = email1
+    user.password = password1
+    user.first_name = first_name1
+    user.last_name = last_name1
+    user.save()
