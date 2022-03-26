@@ -6,14 +6,16 @@ import Tab from '@mui/material/Tab';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import ProfileRecipeFeed from './ProfileRecipeFeed';
-import { LocalActivityTwoTone } from '@mui/icons-material';
+import { ConstructionOutlined, LocalActivityTwoTone } from '@mui/icons-material';
 import { useNavigate } from "react-router-dom";
 import { useEffect } from 'react';
-import { getUser, getUserReturn } from '../client';
+import { getRecipe, getRecipeFromUser, getRecipeReturn, getUser, getUserReturn, getUserReturnNoWait } from '../client';
 import { isReturnStatement } from 'typescript';
 import ProfileRecipes from './ProfileRecipeFeed';
 import TitlebarImageList from '../components/molecules/imagelistTest';
 
+let profileitemdata: Array<any>
+let owner: any;
 // Source for TabPanelProps interface, TabPanel function is:
 // https://mui.com/components/tabs/#BasicTabs.tsx
 
@@ -61,6 +63,37 @@ async function SetName() {
     })
     }
 }
+
+
+ function setItemdata() {
+    let myusername: any;
+    let recipedata =  getRecipeReturn('1');
+  
+    let myRecipe = JSON.parse(recipedata);
+    let tittel = myRecipe.title;
+    console.log(tittel);
+    let userid = myRecipe.owner_id;
+    console.log(userid);
+  
+    let image = 'http://127.0.0.1:8000' + myRecipe.image;
+    console.log(image);
+
+    owner =  getUserReturnNoWait(userid);
+    console.log('Her er owner' + owner);
+    let myuserdata = JSON.parse(owner);
+    console.log(myuserdata);
+    myusername = myuserdata.username;
+    console.log(myusername);
+    let finalusername = '@' + myusername;
+    console.log(finalusername);
+    
+    
+    profileitemdata = [{img: image , title: tittel, author: finalusername },];
+  
+    return profileitemdata;
+  
+  }
+  
 
 
 export default function Profile(){
@@ -113,16 +146,19 @@ export default function Profile(){
                         <Tab label="Saved recipes" />
                     </Tabs>
                     <TabPanel value={value} index={0}>
-                    {TitlebarImageList(myRecipeData)}
+                    {TitlebarImageList(setItemdata())}
                     </TabPanel>
                     <TabPanel value={value} index={1}>
-                    Item Two
+                        {}
                     </TabPanel>
                 </Box>
             </div>
         </div>
     );
 }
+
+
+
 const myRecipeData = [
     {
       img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',

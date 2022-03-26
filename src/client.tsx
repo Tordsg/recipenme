@@ -3,6 +3,8 @@ axios.defaults.baseURL = 'http://127.0.0.1:8000/app1';
 let userID: any;
 let userData: any;
 let recipeData: any;
+let userRecipedata: any;
+
 
 async function postUser(firstNameToPost:string, lastNameToPost:string, usernameToPost:string, emailToPost:string, passwordToPost:string) {
     try {
@@ -46,6 +48,17 @@ async function getUser(userID : number) {
     console.log(error);
   }
 }
+
+  async function getUserReturn(userID : number) {
+     await getUser(userID);
+    return userData;
+}
+
+function getUserReturnNoWait(userID : number) {
+  getUser(userID);
+  return userData;
+ }
+
 async function getRecipe(recipeID: string){
   try {
     const response = await axios.get('/recipe/' + recipeID)
@@ -58,11 +71,16 @@ async function getRecipe(recipeID: string){
     console.log(error);
   }
 }
+
+  function getRecipeReturn(recipeID: string){
+      getRecipe(recipeID);
+      return recipeData;
+}
 async function getRecipeFromUser(userID: string){
   try {
     const response = await axios.get('/getUserRecipes/' + userID)
     .then((result: any) => {
-      userData = JSON.stringify(result.data);
+      userRecipedata = JSON.stringify(result.data);
       return result.data;
     })
     console.log(response);
@@ -71,10 +89,11 @@ async function getRecipeFromUser(userID: string){
   }
 }
 
-async function getUserReturn(userID : number) {
-  await getUser(userID);
-  return userData;
+function getRecipesFromUserReturn(userID: string) {
+  getRecipeFromUser(userID);
+  return userRecipedata;
 }
+
 
 async function loginUser(username:string, password:string){
   try {
@@ -226,4 +245,10 @@ function postCategory(categoryToPost:string) {
   });
 }
 
-export { getRecipeFromUser,getRecipes, getRecipe, postUser, postUserReturn, getUser, getUserReturn, postRecipe, postComment, postLike, postScore, postFavorite, postFollower, postCategory, loginUser, loginReturn }
+
+
+
+
+
+
+export {  getUserReturnNoWait, getRecipeReturn, getRecipeFromUser,getRecipes, getRecipe, postUser, postUserReturn, getUser, getUserReturn, postRecipe, postComment, postLike, postScore, postFavorite, postFollower, postCategory, loginUser, loginReturn }

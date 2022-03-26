@@ -41,6 +41,7 @@ def getUser(request, user_id):
                 ##serialized = userSerializer(user)
                 data_details = {'first_name' : user.first_name, 'last_name':user.last_name, 'email' : user.email, 'username' : user.username}
                 return HttpResponse(json.dumps(data_details))
+                # JsonResponse(data_details)
         except:
             user = None
             return HttpResponse(user)
