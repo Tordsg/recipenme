@@ -54,6 +54,7 @@ async function getUser(userID : number) {
     return userData;
 }
 
+//ikke async
 function getUserReturnNoWait(userID : number) {
   getUser(userID);
   return userData;
