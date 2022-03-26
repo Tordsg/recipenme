@@ -1,0 +1,67 @@
+.EPOuterProfileBox {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.EPTextFieldBox {
+    display: flex;
+    margin-left: 12%;
+    margin-right: 12%;
+    margin-top: 3%;
+    line-height: 4vw;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.EPContentBox {
+    border: #d3e4ce solid 0.3vw;
+    margin-left: 21%;
+    margin-right: 21%;
+}
+
+.FirstNameBox {
+    margin-left: 3%;
+}
+
+.FirstName {
+    margin-right: 19%;
+    align-items: center;
+}
+
+.LastName {
+    margin-right: 20%;
+    align-items: center;
+}
+
+.Username {
+    margin-right: 21%;
+    align-items: center;
+}
+
+.E-mail {
+    margin-right: 30%;
+    align-items: center;
+}
+
+.Password {
+    margin-right: 23%;
+    align-items: center;
+}
+
+.RepeatPassword {
+    margin-right: 7%;
+}
+
+.EPEditProfileHeader {
+    color: #2f4f4f; 
+    font-size: 30px;
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.EPBottomBox {
+    margin-bottom: 2%;
+    margin-top: -5%;
+    margin-right: 8%;
+}
