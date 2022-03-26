@@ -8,12 +8,61 @@ import FormTextField from '../atoms/FormTextField';
 import { getJSDocOverrideTagNoCache } from 'typescript';
 import { lineHeight, width } from '@mui/system';
 import MainBody from '../../tempComponents/MainBody';
-import { getRecipe } from '../../client';
+import { getRecipe, getQuery, getRecipeFromCategory, getRecipeFromCategoryReturn, getUserReturnNoWait } from '../../client';
 import { useTheme } from '@emotion/react';
 import TitlebarImageList from './imagelistTest';
 import Container from '@mui/material/Container';
 
+let breakfastdata: Array<any>;
+let simpledishdata: Array<any>;
+let vegandata: Array<any>;
+let italiandata: Array<any>;
+let glutenfreedata: Array<any>;
 
+
+
+
+async function Search() {
+  let searchValue = (document.getElementById('searchbar') as HTMLInputElement).value;
+  const recipes = await getQuery(searchValue);
+  return recipes;
+}
+async function updateView(newValue: number) {
+  if (newValue === 0) {
+      let searchbar = document.getElementById('searchbarContainerID');
+      if (searchbar != null) {
+          searchbar.style.display = "block";
+      }
+
+  } else {
+      let searchbar = document.getElementById('searchbarContainerID');
+      let category = "";
+
+      if (searchbar != null) {
+          searchbar.style.display = "none";
+      }
+      if (newValue === 1) {
+          category = "Breakfast";
+          
+
+      } else if (newValue === 2) {
+          category = "Simple dish";
+          
+
+      } else if (newValue === 3) {
+          category = "Vegan";
+          
+
+      } else if (newValue === 4) {
+          category = "Italian";
+          
+
+      } else if (newValue === 5) {
+          category = "Gluten-free";
+          
+      }
+  }
+}
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -35,15 +84,31 @@ function TabPanel(props: TabPanelProps) {
     );
 }
 
-
-
-
-
-function Search() {
-    let searchValue = (document.getElementById('searchbar') as HTMLInputElement).value;
-    //get search request from server
-    //getSearch(searchValue);
+function breakfastRecipes() {
+    let recipecategorydata = getRecipeFromCategoryReturn('Breakfast');
+    console.log(recipecategorydata);
+    console.log('Test disse greiene');
+    breakfastdata = [];
+    for( let i=0; i < Object.keys(recipecategorydata).length; i++){
+         console.log(recipecategorydata[i].title);
+         let myRecipeBreakfast = recipecategorydata[i];
+         let image = 'http://127.0.0.1:8000' + myRecipeBreakfast.image;
+         let tittel = myRecipeBreakfast.title;
+         let owner = myRecipeBreakfast.owner_id;
+         let owneruser =  getUserReturnNoWait(owner);
+          let myuserdata = JSON.parse(owneruser);
+          let username = '@' + myuserdata.username;
+          breakfastdata.push({img: image, title: tittel, author: username, recipeid: myRecipeBreakfast.id,});
+     }
+    
+    return breakfastdata;
 }
+
+
+
+
+
+
 
 const FrontPageTabs = () => {
     const [value, setValue] = React.useState(0);
@@ -52,41 +117,7 @@ const FrontPageTabs = () => {
         console.log(newValue);
 
         setValue(newValue);
-        if (newValue === 0) {
-            let searchbar = document.getElementById('searchbarContainerID');
-            if (searchbar != null) {
-                searchbar.style.display = "block";
-                
-
-            }
-        } else {
-            let searchbar = document.getElementById('searchbarContainerID');
-            if (searchbar != null) {
-                searchbar.style.display = "none";
-                
-            }
-        if (newValue === 1) {
-            return 0;
-            //getBreakfast();
-    
-        } else if (newValue === 2) {
-            return 0;
-            //getSimpleDish();
-    
-        } else if (newValue === 3) {
-            return 0;
-            //getVegan();
-    
-        } else if (newValue === 4) {
-            // SetRecipe()
-
-            //getItalian();
-    
-        } else if (newValue === 5) {
-            return 0;
-            //getGlutenFree();
-            }
-        }
+        updateView(newValue);
     };
     const theme = createTheme({
         components: {
@@ -184,7 +215,7 @@ const FrontPageTabs = () => {
                     {TitlebarImageList(breakfastData)}
                     </TabPanel>
                     <TabPanel value={value} index={1}>
-                        {TitlebarImageList(breakfastData)}
+                        {TitlebarImageList(breakfastRecipes())}
                     </TabPanel>
                     <TabPanel value={value} index={2}>
                         

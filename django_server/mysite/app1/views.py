@@ -1,5 +1,6 @@
 import base64
 import email
+from unicodedata import category
 from django import http
 from django.forms import JSONField
 from django.http import Http404, HttpResponse, HttpResponseBadRequest, HttpResponseNotFound, JsonResponse, request
@@ -70,6 +71,7 @@ def recipe(request, pk):
             return HttpResponseNotFound('notFound')
     else:
         return HttpResponseBadRequest('bad')
+        
 def getUserRecipes(request, pk):
     if(request.method=='GET'):
             recipes = Recipe.objects.filter(owner_id = pk).all()
@@ -81,3 +83,45 @@ def getUserRecipes(request, pk):
             return JsonResponse(l)
     else:
         return HttpResponseBadRequest('bad')
+
+def makeSearch(request, q):
+    if request.method == 'GET':
+        try:
+            #recipes = Recipe.get_queryset(q)
+            recipes = Recipe.objects.filter(title=q).all()
+            print("before")
+            print(recipes)
+            print("after")
+            full_data_details = {}
+            i=0
+            for recipe in recipes:
+                full_data_details[i] = (getRecipeSerializer(recipe).data)
+                i+=1
+                ## fix image later
+                # ownerJSON = getUser(recipe.owner)
+                # print(recipe.image)
+                # data_details = {'recipe_id' : recipe.pk, 'title' : recipe.title, 'first_name' : ownerJSON['first_name'], 'last_name' : ownerJSON['first_name'], 'image' : recipe.image}
+                # full_data_details.append(json.dumps(data_details))
+            return JsonResponse(full_data_details)
+        except:
+            return HttpResponse("failed")
+
+def getRecipesFromCategory(request, c):
+    if (request.method == 'GET'):
+        try:
+            #recipes = Recipe.get_queryset(q)
+            recipes = Recipe.objects.filter(category__contains=c).all()
+            print(recipes)
+            l = {}
+            i=0
+            for recipe in recipes:
+                l[i] = (getRecipeSerializer(recipe).data)
+                i+=1
+                # ownerJSON = getUser(recipe.owner)
+                # print(recipe.image)
+                # data_details = {'recipe_id' : recipe.pk, 'title' : recipe.title}
+                # full_data_details.append(json.dumps(data_details))
+            return JsonResponse(l)
+        except:
+            return HttpResponse("failed")
+

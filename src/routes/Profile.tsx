@@ -6,16 +6,17 @@ import Tab from '@mui/material/Tab';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import ProfileRecipeFeed from './ProfileRecipeFeed';
-import { ConstructionOutlined, LocalActivityTwoTone } from '@mui/icons-material';
+import { ConnectedTvOutlined, ConstructionOutlined, LocalActivityTwoTone, ResetTvOutlined } from '@mui/icons-material';
 import { useNavigate } from "react-router-dom";
 import { useEffect } from 'react';
-import { getRecipe, getRecipeFromUser, getRecipeReturn, getUser, getUserReturn, getUserReturnNoWait } from '../client';
-import { isReturnStatement } from 'typescript';
+import { getRecipe, getRecipeFromUser, getRecipeReturn, getRecipesFromUserReturn, getUser, getUserReturn, getUserReturnNoWait } from '../client';
+import { convertTypeAcquisitionFromJson, isReturnStatement } from 'typescript';
 import ProfileRecipes from './ProfileRecipeFeed';
 import TitlebarImageList from '../components/molecules/imagelistTest';
 
-let profileitemdata: Array<any>
-let owner: any;
+
+let itemdata: Array<any>;
+
 // Source for TabPanelProps interface, TabPanel function is:
 // https://mui.com/components/tabs/#BasicTabs.tsx
 
@@ -63,36 +64,28 @@ async function SetName() {
     })
     }
 }
-
-
- function setItemdata() {
-    let myusername: any;
-    let recipedata =  getRecipeReturn('1');
-  
-    let myRecipe = JSON.parse(recipedata);
-    let tittel = myRecipe.title;
-    console.log(tittel);
-    let userid = myRecipe.owner_id;
-    console.log(userid);
-  
-    let image = 'http://127.0.0.1:8000' + myRecipe.image;
-    console.log(image);
-
-    owner =  getUserReturnNoWait(userid);
-    console.log('Her er owner' + owner);
+ function userRecipes() {
+     
+    let userID = Number(localStorage.getItem('user'));
+    let recipedata = getRecipesFromUserReturn(localStorage.getItem('user').toString());
+    console.log('Test disse greiene');
+    console.log(recipedata);
+    itemdata = [];
+    let owner =  getUserReturnNoWait(userID);
     let myuserdata = JSON.parse(owner);
-    console.log(myuserdata);
-    myusername = myuserdata.username;
-    console.log(myusername);
-    let finalusername = '@' + myusername;
-    console.log(finalusername);
+    let username = '@' + myuserdata.username;
+    for( let i=0; i < Object.keys(recipedata).length; i++){
+          console.log(recipedata[i].title);
+          let myRecipe = recipedata[i];
+          let image = 'http://127.0.0.1:8000' + myRecipe.image;
+          let tittel = myRecipe.title;
+         itemdata.push({img: image, title: tittel, author: username, recipeid: myRecipe.id,});
+      }
+
+    return itemdata;
     
-    
-    profileitemdata = [{img: image , title: tittel, author: finalusername },];
-  
-    return profileitemdata;
-  
-  }
+ }
+
   
 
 
@@ -146,10 +139,11 @@ export default function Profile(){
                         <Tab label="Saved recipes" />
                     </Tabs>
                     <TabPanel value={value} index={0}>
-                    {TitlebarImageList(setItemdata())}
+                    {TitlebarImageList(userRecipes())}
                     </TabPanel>
+                    
                     <TabPanel value={value} index={1}>
-                        {}
+                       
                     </TabPanel>
                 </Box>
             </div>

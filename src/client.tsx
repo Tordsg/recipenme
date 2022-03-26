@@ -4,6 +4,9 @@ let userID: any;
 let userData: any;
 let recipeData: any;
 let userRecipedata: any;
+let queryData: any;
+let categoryData: any;
+let userData2: any;
 
 
 async function postUser(firstNameToPost:string, lastNameToPost:string, usernameToPost:string, emailToPost:string, passwordToPost:string) {
@@ -49,15 +52,29 @@ async function getUser(userID : number) {
   }
 }
 
-  async function getUserReturn(userID : number) {
-     await getUser(userID);
-    return userData;
+async function getUserReturn(userID : number) {
+  await getUser(userID);
+ return userData;
 }
+
+async function getUser2(userID : number) {
+  try {
+    const response = await axios.get('/user/' + userID)
+    .then((result: any) => {
+      userData2 = JSON.stringify(result.data);
+      return userData2;
+    })
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 
 //ikke async
 function getUserReturnNoWait(userID : number) {
-  getUser(userID);
-  return userData;
+  getUser2(userID);
+  return userData2;
  }
 
 async function getRecipe(recipeID: string){
@@ -81,8 +98,8 @@ async function getRecipeFromUser(userID: string){
   try {
     const response = await axios.get('/getUserRecipes/' + userID)
     .then((result: any) => {
-      userRecipedata = JSON.stringify(result.data);
-      return result.data;
+      userRecipedata = result.data;
+      return userRecipedata;
     })
     console.log(response);
   } catch (error) {
@@ -246,10 +263,42 @@ function postCategory(categoryToPost:string) {
   });
 }
 
+async function getQuery(query: string){
+  try {
+
+    const response = await axios.get('/search/' + query)
+    .then((result: any) => {
+
+      queryData = JSON.stringify(result.data);
+
+      return queryData;
+    })
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+async function getRecipeFromCategory(category: string){
+  try {
+    const response = await axios.get('/filter/' + category)
+    .then((result: any) => {
+
+      categoryData = result.data;
+      return categoryData;
+    })
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+ function getRecipeFromCategoryReturn(category: string) {
+  getRecipeFromCategory(category);
+  return categoryData;
+}
 
 
 
 
-
-
-export {  getUserReturnNoWait, getRecipeReturn, getRecipeFromUser,getRecipes, getRecipe, postUser, postUserReturn, getUser, getUserReturn, postRecipe, postComment, postLike, postScore, postFavorite, postFollower, postCategory, loginUser, loginReturn }
+export {getRecipeFromCategoryReturn, getRecipesFromUserReturn, getQuery, getRecipeFromCategory, getUserReturnNoWait, getRecipeReturn, getRecipeFromUser,getRecipes, getRecipe, postUser, postUserReturn, getUser, getUserReturn, postRecipe, postComment, postLike, postScore, postFavorite, postFollower, postCategory, loginUser, loginReturn }

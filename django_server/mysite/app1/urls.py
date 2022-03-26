@@ -15,6 +15,8 @@ urlpatterns = [
     path('postRecipe', views.postRecipe),
     path('recipe/<int:pk>', views.recipe, name = 'getRecipe'),
     path('getUserRecipes/<int:pk>', views.getUserRecipes, name = 'getUserRecipes'),
+    path('search/<str:q>', views.makeSearch),
+    path('filter/<str:c>', views.getRecipesFromCategory),
 ] 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
