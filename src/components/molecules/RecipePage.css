@@ -1,0 +1,46 @@
+/* 
+CSS and Flexbox Guides:
+https://css-tricks.com/snippets/css/a-guide-to-flexbox/#aa-basics-and-terminology
+https://www.w3schools.com/cssref/css3_pr_justify-content.asp
+
+grid guide:
+https://css-tricks.com/snippets/css/complete-guide-grid/
+*/
+
+.wrapper {
+    display: grid; /* Defines a container element as a grid */
+    grid-template-columns: 25% 75%; /* Set the coloumn sizes */
+    grid-template-rows: 25% 75%; /* Set the row sizes */
+    column-gap: 10px;
+    row-gap: 10px;
+    background-color: #FEFBE9;
+    color: black;
+}
+
+.wrapper > .photo {
+    background-color: lightpink; 
+    grid-column-start: 1;
+    grid-row-start: 1;
+}
+
+.wrapper > .title {
+    background-color: lightcyan;
+    text-align: center; 
+    padding-top: 25px;
+    grid-column-start: 2;
+    grid-row-start: 1;
+}
+
+.wrapper > .ingredients {
+    background-color: lightskyblue; 
+    grid-column-start: 1;
+    grid-row-start: 2;
+}
+
+.wrapper > .description {
+    background-color: lightseagreen; 
+    bottom: 0%;
+    padding: 5%;
+    grid-column-start: 2;
+    grid-row-start: 2;
+}

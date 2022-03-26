@@ -13,6 +13,7 @@ import NavBar from './routes/Navbar';
 import LoginForm from './components/molecules/LoginForm';
 import NewRecipeForm from './components/molecules/NewRecipeForm';
 import SignUpForm from './components/molecules/SignUpForm';
+import RecipePage from './components/molecules/RecipePage';
 
 
 ReactDOM.render(
@@ -25,8 +26,9 @@ ReactDOM.render(
         <Route path="login" element={<LoginForm />} />
         <Route path="signup" element={<SignUpForm />} />
         <Route path="new-recipe" element={<NewRecipeForm />} />
-        <Route
-        path="*"
+        <Route path="new-recipe" element={<NewRecipeForm />} />
+        <Route path="recipe" element={<RecipePage />} />
+        <Route path="*"
         element=
         {
           <main style={{ padding: "1rem" }}>
