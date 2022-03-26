@@ -87,6 +87,8 @@ export default function Profile(){
       navigate(path);
     }
 
+    
+
 
     return (
         <div className="wrapper">

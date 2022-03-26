@@ -24,3 +24,11 @@ export default function RecipePage(){
 
     );
 }
+
+/*
+                <ol>
+                    {ingredients.map(ingredient=>(
+                        <li>{ingredient.text}</li>
+                    ))}
+                </ol>
+*/
