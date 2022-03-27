@@ -96,7 +96,9 @@ export default function SignUpForm(){
                 <AccountTextField type={'password'} id="repeatPasswordFieldSignUp" placeholder={'Repeat password'}/>
             </form>
             <p id="errorMessageSignUp" className='signUpError'>Username is already in use</p>
-            <AccountButton handleClick={() => handleSignUp()} buttonText='Sign up'/>
+            <div id="button">
+                <AccountButton handleClick={() => handleSignUp()} buttonText='Sign up'/>
+            </div>
             <br />
             <AccountSwitchButton labelText='Already have an account?' buttonText='Sign in here' inputPath='/login'/>
         </div>

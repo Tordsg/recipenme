@@ -12,6 +12,10 @@
     border-color: #a9d89b;
 }
 
+.signUpDiv > #button {
+    text-align: center;
+}
+
 .signUpForm{
     margin-top: 8%;
     text-align: center;

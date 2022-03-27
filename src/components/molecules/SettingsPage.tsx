@@ -9,7 +9,7 @@ export default function SettingsPage() {
 
     /* Not working */
     const editOption = () => {
-        let path = '/edit';
+        let path = '/edit-profile';
         navigate(path);
     }
 
