@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getUserReturn, loginReturn } from "../../client";
+import { getUserReturn, loginReturn, deleteUserReturn } from "../../client";
 import AccountButton from "../atoms/AccountButton";
 import AccountTextField from "../atoms/AccountTextField";
 import Popup from "../atoms/Popup";
@@ -29,6 +29,10 @@ export default function DeletePopup({id}:popupId) {
         } else {
             const tryLogin = await loginReturn(username, pwd);
             if(tryLogin === parseInt(tryLogin, 10)){
+                const deleteResult = await deleteUserReturn(userID);
+                if(deleteResult == '-1'){
+                    
+                }
                 console.log('heihei');
             } else {
                 error.innerHTML = 'Wrong password';
@@ -47,9 +51,6 @@ export default function DeletePopup({id}:popupId) {
 
     const deleteOption = () => {
         togglePopup();
-        /*let path = '/delete';
-        navigate(path); */
-
     }
 
     return (

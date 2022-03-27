@@ -16,6 +16,7 @@ urlpatterns = [
     path('recipe/<int:pk>', views.recipe, name = 'getRecipe'),
     path('updateProfile', views.updateUser),
     path('getUserRecipes/<int:pk>', views.getUserRecipes, name = 'getUserRecipes'),
+    path('deleteUser', views.deleteUser, name='deleteUser'),
 ] 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

@@ -3,6 +3,7 @@ axios.defaults.baseURL = 'http://127.0.0.1:8000/app1';
 let userID: any;
 let userData: any;
 let recipeData: any;
+let deleteResponse: any;
 
 async function postUser(firstNameToPost:string, lastNameToPost:string, usernameToPost:string, emailToPost:string, passwordToPost:string) {
     try {
@@ -47,8 +48,24 @@ async function getUser(userID : number) {
   }
 }
 
-async function deleteUser(){
+async function deleteUser(userID: number){
+  try {
+    const response = await axios.post('/deleteUser', {
+      userID: userID
+    })
+    .then((result: any) => {
+      deleteResponse = result.data;
+      return deleteResponse;
+    })
+    console.log(response);
+  } catch (error) {
+    console.log(error)
+  }
+}
 
+async function deleteUserReturn(userID: number){
+  await deleteUser(userID);
+  return deleteResponse;
 }
 
 async function getRecipe(recipeID: string){
@@ -261,4 +278,4 @@ function postCategory(categoryToPost:string) {
   });
 }
 
-export { getRecipeFromUser,getRecipes, getRecipe, postUser, postUserReturn, getUser, getUserReturn, postRecipe, postComment, postLike, postScore, postFavorite, postFollower, postCategory, loginUser, loginReturn, UpdateProfile }
+export { getRecipeFromUser,getRecipes, getRecipe, postUser, deleteUser, deleteUserReturn, postUserReturn, getUser, getUserReturn, postRecipe, postComment, postLike, postScore, postFavorite, postFollower, postCategory, loginUser, loginReturn, UpdateProfile }
