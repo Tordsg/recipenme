@@ -91,6 +91,7 @@ async function SetName() {
 
 export default function Profile(){
     /* Handlers for tab */
+    let navigate = useNavigate(); 
     const [value, setValue] = React.useState(0);
     const [data, setData] = React.useState<JSX.Element>();
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -110,12 +111,12 @@ export default function Profile(){
       } catch (error) {
         console.log(error);
       }
-    }, [location]);
+    }, [navigate]);
     /* Handlers for new-recipe button 
     source: https://stackoverflow.com/questions/50644976/react-button-onclick-redirect-page
     */
     
-    let navigate = useNavigate(); 
+
 
     const routeChange = () =>{ 
       let path = `/new-recipe`; 
