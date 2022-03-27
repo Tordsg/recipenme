@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getUserReturn, loginReturn, deleteUserReturn } from "../../client";
 import AccountButton from "../atoms/AccountButton";
 import AccountTextField from "../atoms/AccountTextField";
@@ -13,6 +14,8 @@ interface popupId {
 export default function DeletePopup({id}:popupId) {
     const error = document.getElementById('errorDelete')!;
     const userID = Number(localStorage.getItem('user'));
+    console.log("hei jeg er userID " + userID);
+    let navigate = useNavigate(); 
 
     const deleteProfile = async() => {
         const userdata = await getUserReturn(userID);
@@ -30,16 +33,17 @@ export default function DeletePopup({id}:popupId) {
             const tryLogin = await loginReturn(username, pwd);
             if(tryLogin === parseInt(tryLogin, 10)){
                 const deleteResult = await deleteUserReturn(userID);
-                if(deleteResult == '-1'){
-                    
+                console.log("Hei dette er delete: " + deleteResult);
+                if(deleteResult == 1){
+                    localStorage.setItem('user', '-1');
+                    let path = '/'; 
+                    navigate(path);
                 }
                 console.log('heihei');
             } else {
                 error.innerHTML = 'Wrong password';
                 error.style.display = 'block';
             }
-
-            console.log('jeg skal til backend')
         }
     }
 
