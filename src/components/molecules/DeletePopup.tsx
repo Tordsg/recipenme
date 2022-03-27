@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { getUserReturn, loginReturn } from "../../client";
 import AccountButton from "../atoms/AccountButton";
 import AccountTextField from "../atoms/AccountTextField";
 import Popup from "../atoms/Popup";
@@ -7,20 +8,33 @@ import './DeletePopup.css';
 
 interface popupId {
     id: string;
-    //togglePopup: () => void;
 }
 
 export default function DeletePopup({id}:popupId) {
     const error = document.getElementById('errorDelete')!;
-    const deleteUser = () => {
-        let pwd = (document.getElementById('deletePassword') as HTMLInputElement).value;
-        let pwdRepeat = (document.getElementById('deletePasswordRepeat') as HTMLInputElement).value;
+    const userID = Number(localStorage.getItem('user'));
+
+    const deleteProfile = async() => {
+        const userdata = await getUserReturn(userID);
+        const objList = JSON.parse(userdata);
+        const username = objList.username;
+
+        const pwd = (document.getElementById('deletePassword') as HTMLInputElement).value;
+        const pwdRepeat = (document.getElementById('deletePasswordRepeat') as HTMLInputElement).value;
 
         if(pwd != pwdRepeat){
             console.log('rip');
             error.innerHTML = 'Passwords do not match!';
             error.style.display = 'block';
         } else {
+            const tryLogin = await loginReturn(username, pwd);
+            if(tryLogin === parseInt(tryLogin, 10)){
+                console.log('heihei');
+            } else {
+                error.innerHTML = 'Wrong password';
+                error.style.display = 'block';
+            }
+
             console.log('jeg skal til backend')
         }
     }
@@ -50,7 +64,7 @@ export default function DeletePopup({id}:popupId) {
                         <AccountTextField type='text' id='deletePasswordRepeat' placeholder='Repeat password' />
                     </form>
                     <p id='errorDelete' className='deleteError'></p>
-                    <AccountButton handleClick={deleteUser} buttonText='Delete my account'/>
+                    <AccountButton handleClick={deleteProfile} buttonText='Delete my account'/>
                 </>
             }
             />}

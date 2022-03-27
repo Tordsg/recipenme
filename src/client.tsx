@@ -46,6 +46,11 @@ async function getUser(userID : number) {
     console.log(error);
   }
 }
+
+async function deleteUser(){
+
+}
+
 async function getRecipe(recipeID: string){
   try {
     const response = await axios.get('/recipe/' + recipeID)
