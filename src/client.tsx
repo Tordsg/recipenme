@@ -54,7 +54,7 @@ async function getUser(userID : number) {
 }
 
 async function getUserReturn(userID : number) {
-  await getUser(userID);
+  getUser(userID);
  return userData;
 }
 

@@ -16,6 +16,7 @@ urlpatterns = [
     path('recipe/<int:pk>', views.recipe, name = 'getRecipe'),
     path('getUserRecipes/<int:pk>', views.getUserRecipes, name = 'getUserRecipes'),
     path('search/<str:q>', views.makeSearch),
+    path('getAll', views.getAll),
     path('filter/<str:c>', views.getRecipesFromCategory),
 ] 
 if settings.DEBUG:

@@ -12,6 +12,9 @@ import { getRecipe, getQuery, getRecipeFromCategory, getRecipeFromCategoryReturn
 import { useTheme } from '@emotion/react';
 import TitlebarImageList from './imagelistTest';
 import Container from '@mui/material/Container';
+import { Console } from 'console';
+const axios = require('axios').default;
+axios.defaults.baseURL = 'http://127.0.0.1:8000/app1';
 
 // let breakfastdata: Array<any>;
 // let simpledishdata: Array<any>;
@@ -21,12 +24,6 @@ import Container from '@mui/material/Container';
 
 
 
-
-async function Search() {
-  let searchValue = (document.getElementById('searchbar') as HTMLInputElement).value;
-  const recipes = await getQuery(searchValue);
-  return recipes;
-}
 async function updateView(newValue: number) {
   if (newValue === 0) {
       let searchbar = document.getElementById('searchbarContainerID');
@@ -59,7 +56,6 @@ async function updateView(newValue: number) {
 
       } else if (newValue === 5) {
           category = "Gluten-free";
-          
       }
   }
 }
@@ -106,13 +102,78 @@ function TabPanel(props: TabPanelProps) {
 
 
 
+function userRecipes(liste: any) {
+  let recipedata =  liste;
+     console.log('Test disse greiene');
+     console.log(recipedata);
+  let itemdata = [];
+     for( let i=0; i < Object.keys(recipedata).length; i++){
+            console.log(recipedata[i].title);
+            let myRecipe = recipedata[i];
+            let image = 'http://127.0.0.1:8000' + myRecipe.image;
+            let username = '@' + myRecipe.username;
+            let tittel = myRecipe.title;
+           itemdata.push({img: image, title: tittel, author: username, recipeid: myRecipe.id,});
+        }
+
+      return itemdata;
+  
+}
 
 
-
-
+let fixen = 0
 const FrontPageTabs = () => {
     const [value, setValue] = React.useState(0);
+    const [data, setData] = React.useState<JSX.Element>();
+    const [fix, setFix] = React.useState(0);
+    function handleFix(){
+      fixen ++;
+      console.log('fix')
+      setFix(fixen);
+    }
+    useEffect(() => {
+      let num = value;
+      let category: string;
+      switch(num){
+        case 0: {
+          if((document.getElementById('searchbar') as HTMLInputElement).value == ''){
+            category = 'getAll'
+          }else{
+          category = 'search/' + (document.getElementById('searchbar') as HTMLInputElement).value;
+          }
+          break;
+        }
 
+        case 1: {
+          category = 'filter/Breakfast';
+          break;
+        }
+        case 2: {
+          category = 'filter/Simple dish';
+          break;
+        }
+        case 3: {
+          category = 'filter/Vegan';
+          break;
+        }
+        case 4: {
+          category = 'filter/Italian';
+          break;
+        }
+        case 5: {
+          category = 'filter/Gluten-free';
+          break;
+        }
+      }
+  try {
+      axios.get('/' + category)
+      .then((result: any) => {
+        setData(TitlebarImageList(userRecipes(result.data)));
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }, [value, fix]);
     const handleChange =  (event: React.SyntheticEvent, newValue: number) => {
         console.log(newValue);
 
@@ -208,30 +269,29 @@ const FrontPageTabs = () => {
                         <Tab label="Gluten-free" />
                     </Tabs>
                     <div id="searchbarContainerID">
-                      <input placeholder="Search" id="searchbar" type="text"/>
-                      <button onClick={() => Search()} id="searchButton"><ThemeProvider theme={themeIcon}><SearchIcon fontSize='small'></SearchIcon></ThemeProvider></button>
+                      <input placeholder="Search" id="searchbar" type="text" onChange = {e => handleFix()}/>
                       </div>
                     <TabPanel value={value} index={0}>
-                    {TitlebarImageList(breakfastData)}
+                    {data}
                     </TabPanel>
                     <TabPanel value={value} index={1}>
-                        {TitlebarImageList(breakfastData)}
+                        {data}
                     </TabPanel>
                     <TabPanel value={value} index={2}>
                         
-                      {TitlebarImageList(simpleDishData)}
+                      {data}
                     </TabPanel>
                     <TabPanel value={value} index={3}>
-                        {TitlebarImageList(veganData)}
+                        {data}
                     </TabPanel>
                     <TabPanel value={value} index={4}>
                         
                         
-                            {TitlebarImageList(italianData)}
+                            {data}
                         
                     </TabPanel>
                     <TabPanel value={value} index={5}>
-                        {TitlebarImageList(glutenFreeData)}
+                        {data}
                     </TabPanel>
                 </ThemeProvider>
                 

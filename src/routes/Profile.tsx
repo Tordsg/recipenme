@@ -7,12 +7,14 @@ import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import ProfileRecipeFeed from './ProfileRecipeFeed';
 import { ConnectedTvOutlined, ConstructionOutlined, LocalActivityTwoTone, ResetTvOutlined } from '@mui/icons-material';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from 'react';
 import { getRecipe, getRecipeReturn, getRecipesFromUserReturn, getUser, getUserReturn, getUserReturnNoWait,getRecipeFromUser } from '../client';
 import { convertTypeAcquisitionFromJson, isReturnStatement } from 'typescript';
 import ProfileRecipes from './ProfileRecipeFeed';
 import TitlebarImageList from '../components/molecules/imagelistTest';
+const axios = require('axios').default;
+axios.defaults.baseURL = 'http://127.0.0.1:8000/app1';
 
 
 let itemdata: Array<any>;
@@ -61,23 +63,21 @@ async function SetName() {
 
         let name = document.getElementById('name')!;
         name.innerHTML = newName;
-    })
+    }, [])
     }
 }
-  function userRecipes() {
+  function userRecipes(liste: any) {
      
-      let userID = Number(localStorage.getItem('user'));
-       let recipedata = getRecipesFromUserReturn(localStorage.getItem('user').toString());
+    let userID = Number(localStorage.getItem('user'));
+    let recipedata =  liste;
        console.log('Test disse greiene');
        console.log(recipedata);
        itemdata = [];
-       let owner =  getUserReturnNoWait(userID);
-       let myuserdata = JSON.parse(owner);
-       let username = '@' + myuserdata.username;
        for( let i=0; i < Object.keys(recipedata).length; i++){
               console.log(recipedata[i].title);
               let myRecipe = recipedata[i];
               let image = 'http://127.0.0.1:8000' + myRecipe.image;
+              let username = '@' + myRecipe.username;
               let tittel = myRecipe.title;
              itemdata.push({img: image, title: tittel, author: username, recipeid: myRecipe.id,});
           }
@@ -90,18 +90,27 @@ async function SetName() {
 
 
 export default function Profile(){
-
     /* Handlers for tab */
     const [value, setValue] = React.useState(0);
-
+    const [data, setData] = React.useState<JSX.Element>();
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
       setValue(newValue);
     };
-
+    let location = useLocation();
     const handleChangeIndex = (index: number) => {
         setValue(index);
     };
-    
+    useEffect(() => {
+        console.log('oppdatert')
+    try {
+        axios.get('/getUserRecipes/' + localStorage.getItem('user').toString())
+        .then((result: any) => {
+          setData(TitlebarImageList(userRecipes(result.data)));
+        })
+      } catch (error) {
+        console.log(error);
+      }
+    }, [location]);
     /* Handlers for new-recipe button 
     source: https://stackoverflow.com/questions/50644976/react-button-onclick-redirect-page
     */
@@ -139,7 +148,7 @@ export default function Profile(){
                         <Tab label="Saved recipes" />
                     </Tabs>
                     <TabPanel value={value} index={0}>
-                    {TitlebarImageList(userRecipes())}
+                    {data}
                     </TabPanel>
                     
                     <TabPanel value={value} index={1}>
