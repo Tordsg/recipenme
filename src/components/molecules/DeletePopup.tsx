@@ -1,9 +1,13 @@
+import { useState } from "react";
 import AccountButton from "../atoms/AccountButton";
 import AccountTextField from "../atoms/AccountTextField";
+import Popup from "../atoms/Popup";
+import SettingsOption from "../atoms/SettingsOption";
 import './DeletePopup.css';
 
 interface popupId {
     id: string;
+    //togglePopup: () => void;
 }
 
 export default function DeletePopup({id}:popupId) {
@@ -21,17 +25,36 @@ export default function DeletePopup({id}:popupId) {
         }
     }
 
+    const [isOpen, setIsOpen] = useState(false);
+
+    const togglePopup = () => {
+        setIsOpen(!isOpen);
+    }
+
+    const deleteOption = () => {
+        togglePopup();
+        /*let path = '/delete';
+        navigate(path); */
+
+    }
+
     return (
         //1. Hent info om bruker så du vet username
         //2. Bruk login-funksjonen for å autentisere
-        <div id={id} className='deletePopup'>
-            <h4>Please enter your password to delete your account.</h4>
-            <form>
-                <AccountTextField type='text' id='deletePassword' placeholder='Password' />
-                <AccountTextField type='text' id='deletePasswordRepeat' placeholder='Repeat password' />
-            </form>
-            <p id='errorDelete' className='deleteError'></p>
-            <AccountButton handleClick={deleteUser} buttonText='Delete my account'/>
+        <div>
+            {isOpen && <Popup id={id} handleClick={togglePopup} content = {
+                <>
+                    <h2 className="header">Please enter your password to delete your account.</h2>
+                    <form>
+                        <AccountTextField type='text' id='deletePassword' placeholder='Password' />
+                        <AccountTextField type='text' id='deletePasswordRepeat' placeholder='Repeat password' />
+                    </form>
+                    <p id='errorDelete' className='deleteError'></p>
+                    <AccountButton handleClick={deleteUser} buttonText='Delete my account'/>
+                </>
+            }
+            />}
+            <SettingsOption handleClick={deleteOption} text={"Delete account"}/>
         </div>
     );
 }

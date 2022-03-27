@@ -4,7 +4,7 @@ from django import http
 from django.forms import JSONField
 from django.http import Http404, HttpResponse, HttpResponseBadRequest, HttpResponseNotFound, JsonResponse, request
 from django.shortcuts import get_object_or_404
-from .models import CreatePost, CreateUser, Recipe, User
+from .models import CreatePost, CreateUser, Recipe, UpdateProfile, User
 from .serializer import userSerializer, recipeForm, getRecipeSerializer
 import random
 import json
@@ -44,6 +44,13 @@ def getUser(request, user_id):
         except:
             user = None
             return HttpResponse(user)
+
+def updateUser(request):
+    if request.method=='POST':
+        print("hello")
+        a = json.loads(request.readline().decode('utf-8'))
+        user = UpdateProfile(a.get('userid'), a.get('username'),a.get('email'),a.get('password'), a.get('first_name'), a.get('last_name'))
+
 def handle_uploaded_file(f):
     with open('some/file/name.txt', 'wb+') as destination:
         for chunk in f.chunks():

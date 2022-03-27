@@ -1,5 +1,6 @@
 .deletePopup {
-    display: none;
+    /*display: block; */
+    visibility: visible;
     z-index: 1;
 }
 
@@ -11,4 +12,13 @@
     color: red;
     display: none;
     z-index: 1;
+}
+
+.loginButton {
+    margin-left: -1%;
+}
+
+.header {
+    margin-bottom: 10px;
+    font-size: 20px;
 }
