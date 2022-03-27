@@ -1,6 +1,11 @@
 import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
+import ListSubheader from '@mui/material/ListSubheader';
+import IconButton from '@mui/material/IconButton';
+import InfoIcon from '@mui/icons-material/Info';
+import { getRecipeReturn } from '../client';
 
 const itemData = [
     {
@@ -53,17 +58,31 @@ const itemData = [
     },
 ];
 
-export default function ProfileRecipes() {
 
-    return (
-    <ImageList cols={3}>
-      {itemData.map((item) => (
-        <ImageListItem key={item.img}>
+
+export default function ProfileRecipefeed(itemdata: Array<any>) {
+  return (
+    <ImageList cols = {3} sx={{ width: '70%' , height: '100%', margin: 'auto', marginTop: '3vw', padding: '0px', }} >
+      {itemdata.map((item) => (
+        <ImageListItem key={item.image}>
           <img
-            src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-            srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+            src={`${item.image}?w=164&h=164&fit=crop&auto=format`}
+            srcSet={`${item.image}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
             alt={item.title}
             loading="lazy"
+          />
+          <ImageListItemBar
+            sx={{ color: '#76af67' }}
+            title={item.title}
+            subtitle={item.owner_id}
+            actionIcon={
+              <IconButton
+                sx={{ color: '#76af67' }}
+                aria-label={`info about ${item.title}`}
+              >
+                <InfoIcon />
+              </IconButton>
+            }
           />
         </ImageListItem>
       ))}
