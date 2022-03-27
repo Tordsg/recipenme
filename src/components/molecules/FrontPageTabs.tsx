@@ -13,11 +13,11 @@ import { useTheme } from '@emotion/react';
 import TitlebarImageList from './imagelistTest';
 import Container from '@mui/material/Container';
 
-let breakfastdata: Array<any>;
-let simpledishdata: Array<any>;
-let vegandata: Array<any>;
-let italiandata: Array<any>;
-let glutenfreedata: Array<any>;
+// let breakfastdata: Array<any>;
+// let simpledishdata: Array<any>;
+// let vegandata: Array<any>;
+// let italiandata: Array<any>;
+// let glutenfreedata: Array<any>;
 
 
 
@@ -84,25 +84,25 @@ function TabPanel(props: TabPanelProps) {
     );
 }
 
-function breakfastRecipes() {
-    let recipecategorydata = getRecipeFromCategoryReturn('Breakfast');
-    console.log(recipecategorydata);
-    console.log('Test disse greiene');
-    breakfastdata = [];
-    for( let i=0; i < Object.keys(recipecategorydata).length; i++){
-         console.log(recipecategorydata[i].title);
-         let myRecipeBreakfast = recipecategorydata[i];
-         let image = 'http://127.0.0.1:8000' + myRecipeBreakfast.image;
-         let tittel = myRecipeBreakfast.title;
-         let owner = myRecipeBreakfast.owner_id;
-         let owneruser =  getUserReturnNoWait(owner);
-          let myuserdata = JSON.parse(owneruser);
-          let username = '@' + myuserdata.username;
-          breakfastdata.push({img: image, title: tittel, author: username, recipeid: myRecipeBreakfast.id,});
-     }
+// function breakfastRecipes() {
+//     let recipecategorydata = getRecipeFromCategoryReturn('Breakfast');
+//     console.log(recipecategorydata);
+//     console.log('Test disse greiene');
+//     breakfastdata = [];
+//     for( let i=0; i < Object.keys(recipecategorydata).length; i++){
+//          console.log(recipecategorydata[i].title);
+//          let myRecipeBreakfast = recipecategorydata[i];
+//          let image = 'http://127.0.0.1:8000' + myRecipeBreakfast.image;
+//          let tittel = myRecipeBreakfast.title;
+//          let owner = myRecipeBreakfast.owner_id;
+//          let owneruser =  getUserReturnNoWait(owner);
+//           let myuserdata = JSON.parse(owneruser);
+//           let username = '@' + myuserdata.username;
+//           breakfastdata.push({img: image, title: tittel, author: username, recipeid: myRecipeBreakfast.id,});
+//      }
     
-    return breakfastdata;
-}
+//     return breakfastdata;
+// }
 
 
 
@@ -215,7 +215,7 @@ const FrontPageTabs = () => {
                     {TitlebarImageList(breakfastData)}
                     </TabPanel>
                     <TabPanel value={value} index={1}>
-                        {TitlebarImageList(breakfastRecipes())}
+                        {TitlebarImageList(breakfastData)}
                     </TabPanel>
                     <TabPanel value={value} index={2}>
                         

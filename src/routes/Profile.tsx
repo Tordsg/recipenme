@@ -9,7 +9,7 @@ import ProfileRecipeFeed from './ProfileRecipeFeed';
 import { ConnectedTvOutlined, ConstructionOutlined, LocalActivityTwoTone, ResetTvOutlined } from '@mui/icons-material';
 import { useNavigate } from "react-router-dom";
 import { useEffect } from 'react';
-import { getRecipe, getRecipeFromUser, getRecipeReturn, getRecipesFromUserReturn, getUser, getUserReturn, getUserReturnNoWait } from '../client';
+import { getRecipe, getRecipeReturn, getRecipesFromUserReturn, getUser, getUserReturn, getUserReturnNoWait,getRecipeFromUser } from '../client';
 import { convertTypeAcquisitionFromJson, isReturnStatement } from 'typescript';
 import ProfileRecipes from './ProfileRecipeFeed';
 import TitlebarImageList from '../components/molecules/imagelistTest';
@@ -64,25 +64,25 @@ async function SetName() {
     })
     }
 }
- function userRecipes() {
+  function userRecipes() {
      
-    let userID = Number(localStorage.getItem('user'));
-    let recipedata = getRecipesFromUserReturn(localStorage.getItem('user').toString());
-    console.log('Test disse greiene');
-    console.log(recipedata);
-    itemdata = [];
-    let owner =  getUserReturnNoWait(userID);
-    let myuserdata = JSON.parse(owner);
-    let username = '@' + myuserdata.username;
-    for( let i=0; i < Object.keys(recipedata).length; i++){
-          console.log(recipedata[i].title);
-          let myRecipe = recipedata[i];
-          let image = 'http://127.0.0.1:8000' + myRecipe.image;
-          let tittel = myRecipe.title;
-         itemdata.push({img: image, title: tittel, author: username, recipeid: myRecipe.id,});
-      }
+      let userID = Number(localStorage.getItem('user'));
+       let recipedata = getRecipesFromUserReturn(localStorage.getItem('user').toString());
+       console.log('Test disse greiene');
+       console.log(recipedata);
+       itemdata = [];
+       let owner =  getUserReturnNoWait(userID);
+       let myuserdata = JSON.parse(owner);
+       let username = '@' + myuserdata.username;
+       for( let i=0; i < Object.keys(recipedata).length; i++){
+              console.log(recipedata[i].title);
+              let myRecipe = recipedata[i];
+              let image = 'http://127.0.0.1:8000' + myRecipe.image;
+              let tittel = myRecipe.title;
+             itemdata.push({img: image, title: tittel, author: username, recipeid: myRecipe.id,});
+          }
 
-    return itemdata;
+        return itemdata;
     
  }
 

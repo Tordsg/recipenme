@@ -7,6 +7,7 @@ let userRecipedata: any;
 let queryData: any;
 let categoryData: any;
 let userData2: any;
+let categoryData2: any;
 
 
 async function postUser(firstNameToPost:string, lastNameToPost:string, usernameToPost:string, emailToPost:string, passwordToPost:string) {
@@ -77,6 +78,8 @@ function getUserReturnNoWait(userID : number) {
   return userData2;
  }
 
+ 
+
 async function getRecipe(recipeID: string){
   try {
     const response = await axios.get('/recipe/' + recipeID)
@@ -89,6 +92,7 @@ async function getRecipe(recipeID: string){
     console.log(error);
   }
 }
+
 
   function getRecipeReturn(recipeID: string){
       getRecipe(recipeID);
@@ -298,7 +302,26 @@ async function getRecipeFromCategory(category: string){
   return categoryData;
 }
 
+async function getRecipeFromCategory2(category: string){
+  try {
+    const response = await axios.get('/filter/' + category)
+    .then((result: any) => {
+
+      categoryData2 = result.data;
+      return categoryData2;
+    })
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+ async function getRecipeFromCategoryReturn2(category: string) {
+  await getRecipeFromCategory(category);
+  return categoryData2;
+}
 
 
 
-export {getRecipeFromCategoryReturn, getRecipesFromUserReturn, getQuery, getRecipeFromCategory, getUserReturnNoWait, getRecipeReturn, getRecipeFromUser,getRecipes, getRecipe, postUser, postUserReturn, getUser, getUserReturn, postRecipe, postComment, postLike, postScore, postFavorite, postFollower, postCategory, loginUser, loginReturn }
+
+export {getRecipeFromCategoryReturn2, getRecipeFromCategoryReturn, getRecipesFromUserReturn, getQuery, getRecipeFromCategory, getUserReturnNoWait, getRecipeReturn, getRecipeFromUser,getRecipes, getRecipe, postUser, postUserReturn, getUser, getUserReturn, postRecipe, postComment, postLike, postScore, postFavorite, postFollower, postCategory, loginUser, loginReturn }
