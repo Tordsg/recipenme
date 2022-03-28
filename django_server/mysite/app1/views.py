@@ -40,7 +40,7 @@ def getUser(request, user_id):
             user = get_object_or_404(User, pk=user_id)
             if user is not None:
                 ##serialized = userSerializer(user)
-                data_details = {'first_name' : user.first_name, 'last_name':user.last_name, 'email' : user.email, 'username' : user.username}
+                data_details = {'first_name' : user.first_name, 'last_name':user.last_name, 'email' : user.email, 'username' : user.username, 'is_superuser' : user.is_superuser}
                 return HttpResponse(json.dumps(data_details))
                 # JsonResponse(data_details)
         except:
@@ -64,10 +64,17 @@ def deleteUser(request):
         get_object_or_404(User, pk=a.get('userID')).delete()
         return HttpResponse(1)
 
+def deleteRecipe(request):
+    if request.method == 'POST':
+        a = json.loads(request.readline().decode('utf-8'))
+        get_object_or_404(Recipe, pk=a.get('recipeID')).delete()
+        return HttpResponse(1)
+
 def handle_uploaded_file(f):
     with open('some/file/name.txt', 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
+
 def postRecipe(request):
     if request.method == 'POST':
         try:

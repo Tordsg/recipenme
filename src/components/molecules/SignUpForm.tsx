@@ -73,8 +73,12 @@ export default function SignUpForm(){
             if(userID === parseInt(userID, 10)){
                 errorMessage!.style.display= 'none';
                 const user = await getUserReturn(userID);
+                const objList = JSON.parse(user);
+                const isAdmin = objList.is_superuser;
                 console.log('dette får du: ' + user);
                 localStorage.setItem('user', userID);
+                localStorage.setItem('isAdmin', isAdmin);
+                console.log('IS ADMIN: ', isAdmin);
                 let path = '/'; 
                 navigate(path);
             } else {

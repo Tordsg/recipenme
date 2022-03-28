@@ -20,6 +20,7 @@ urlpatterns = [
     path('search/<str:q>', views.makeSearch),
     path('getAll', views.getAll),
     path('filter/<str:c>', views.getRecipesFromCategory),
+    path('deleteRecipe', views.deleteRecipe, name = 'deleteRecipe'),
 ] 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

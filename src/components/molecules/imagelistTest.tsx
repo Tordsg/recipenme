@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
 import { useNavigate } from "react-router-dom";
 import { getRecipe, getRecipeReturnAsync, getUserReturn } from '../../client';
-import RecipePage, { insertOwner, insertPhoto, insertTitle, insertCategoryAndTimeEstimate, insertIngredients, insertPreparation, recipePageVisibility } from './RecipePage';
+import RecipePage, { insertOwner, insertPhoto, insertID, insertTitle, insertCategoryAndTimeEstimate, insertIngredients, insertPreparation, recipePageVisibility } from './RecipePage';
 
 async function getRecipeFromId(idNumber: number) {
   recipePageVisibility();
@@ -45,6 +45,9 @@ async function getRecipeFromId(idNumber: number) {
   insertCategoryAndTimeEstimate(category, timeEstimate);
   insertIngredients(ingredients);
   insertPreparation(preparation);
+  console.log(2);
+  insertID(idNumber);
+  console.log(4);
 }
 
 export default function TitlebarImageList(itemdata: Array<any>) {
