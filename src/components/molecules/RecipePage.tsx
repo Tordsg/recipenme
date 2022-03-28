@@ -97,7 +97,7 @@ export default function RecipePage(){
             </div>
             <h1 id="titleField"></h1>
             <h6 id="owner"></h6>
-            <button id='deleteRecipeButton' onClick={deleteRecipe}></button>
+            <button id='deleteRecipeButton' onClick={deleteRecipe}>Delete recipe</button>
             <div className='three'>
                 <div className="gridItem">
                     <h3 className="headerField">Time estimate:</h3>

@@ -136,7 +136,11 @@ https://css-tricks.com/snippets/css/complete-guide-grid/
 
 #deleteRecipeButton {
     z-index: 11;
-    background-image: url( '../../images/bin.png');
-    padding: 20px 20px;
-    display: block;
+    padding: 15px 30px;
+    margin-top: 1.5vw;
+    border-radius: 1vw;
+    border: none;
+    background-color: #a9d89b;
+    color: white;
+    font-size: 20px;
 }
