@@ -14,6 +14,7 @@ import LoginForm from './components/molecules/LoginForm';
 import NewRecipeForm from './components/molecules/NewRecipeForm';
 import SignUpForm from './components/molecules/SignUpForm';
 import RecipePage from './components/molecules/RecipePage';
+import SettingsPage from './components/molecules/SettingsPage';
 import EditProfile from './components/molecules/EditProfile';
 
 
@@ -29,6 +30,7 @@ ReactDOM.render(
         <Route path="new-recipe" element={<NewRecipeForm />} />
         <Route path="new-recipe" element={<NewRecipeForm />} />
         <Route path="recipe" element={<RecipePage />} />
+        <Route path="settings" element={<SettingsPage />} />
         <Route path="edit-profile" element={<EditProfile />} />
         <Route path="*"
         element=

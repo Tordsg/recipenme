@@ -58,6 +58,12 @@ def updateProfile(request):
         a = json.loads(request.readline().decode('utf-8'))
         user = UpdateProfile(a.get('userid'), a.get('username'),a.get('email'),a.get('password'), a.get('first_name'), a.get('last_name'))
 
+def deleteUser(request):
+    if request.method == 'POST':
+        a = json.loads(request.readline().decode('utf-8'))
+        get_object_or_404(User, pk=a.get('userID')).delete()
+        return HttpResponse(1)
+
 def handle_uploaded_file(f):
     with open('some/file/name.txt', 'wb+') as destination:
         for chunk in f.chunks():

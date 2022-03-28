@@ -3,6 +3,7 @@ axios.defaults.baseURL = 'http://127.0.0.1:8000/app1';
 let userID: any;
 let userData: any;
 let recipeData: any;
+let deleteResponse: any;
 let userRecipedata: any;
 let queryData: any;
 let categoryData: any;
@@ -53,9 +54,28 @@ async function getUser(userID : number) {
   }
 }
 
+async function deleteUser(userID: number){
+  try {
+    const response = await axios.post('/deleteUser', {
+      userID: userID
+    })
+    .then((result: any) => {
+      deleteResponse = result.data;
+      return deleteResponse;
+    })
+    console.log(response);
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+async function deleteUserReturn(userID: number){
+  await deleteUser(userID);
+  return deleteResponse;
+}
 async function getUserReturn(userID : number) {
-  getUser(userID);
- return userData;
+  await getUser(userID);
+  return userData;
 }
 
 async function getUser2(userID : number) {
@@ -350,4 +370,4 @@ async function getRecipeFromCategory2(category: string){
 
 
 
-export {UpdateProfile, getRecipeFromCategoryReturn2, getRecipeFromCategoryReturn, getRecipesFromUserReturn, getQuery, getRecipeFromCategory, getUserReturnNoWait, getRecipeReturn, getRecipeFromUser,getRecipes, getRecipe, postUser, postUserReturn, getUser, getUserReturn, postRecipe, postComment, postLike, postScore, postFavorite, postFollower, postCategory, loginUser, loginReturn }
+export {UpdateProfile, getRecipeFromCategoryReturn2, deleteUser, deleteUserReturn, getRecipeFromCategoryReturn, getRecipesFromUserReturn, getQuery, getRecipeFromCategory, getUserReturnNoWait, getRecipeReturn, getRecipeFromUser,getRecipes, getRecipe, postUser, postUserReturn, getUser, getUserReturn, postRecipe, postComment, postLike, postScore, postFavorite, postFollower, postCategory, loginUser, loginReturn }

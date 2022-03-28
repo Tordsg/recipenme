@@ -52,6 +52,13 @@ export default function NavbarDropdown() {
     setAnchorEl(null);
   }
 
+  const routeChangeSettings = () => {
+    let path = '/settings';
+    navigate(path);
+    setAnchorEl(null);
+  }
+
+
   return (
     <div>
         <IconButton 
@@ -81,7 +88,7 @@ export default function NavbarDropdown() {
         onClose={handleClose}
         >
         <MenuItem id = 'profileCategory' onClick={routeChangeProfile}>Profile</MenuItem>
-        <MenuItem id = 'settingsCategory' onClick={handleClose}>Settings</MenuItem>
+        <MenuItem id = 'settingsCategory' onClick={routeChangeSettings}>Settings</MenuItem>
         <MenuItem id = 'loginCategory' onClick={routeChangeLogin}>Login</MenuItem>
         </Menu>
     </div>
