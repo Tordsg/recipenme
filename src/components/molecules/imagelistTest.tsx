@@ -45,7 +45,9 @@ async function getRecipeFromId(idNumber: number) {
   insertCategoryAndTimeEstimate(category, timeEstimate);
   insertIngredients(ingredients);
   insertPreparation(preparation);
+  console.log(2);
   insertID(idNumber);
+  console.log(4);
 }
 
 export default function TitlebarImageList(itemdata: Array<any>) {

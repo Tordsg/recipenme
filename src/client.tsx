@@ -83,7 +83,7 @@ async function getUserReturn(userID : number) {
 
 async function deleteRecipe(recipeID : number){
   try {
-    const response = await axios.post('deleteRecipe/', {
+    const response = await axios.post('/deleteRecipe', {
       recipeID: recipeID
     })
     .then((result: any) => {

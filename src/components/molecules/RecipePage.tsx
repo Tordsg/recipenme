@@ -1,11 +1,11 @@
 import { textAlign } from '@mui/system';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { deleteRecipeReturn } from '../../client';
 import DeleteRecipeButton from '../atoms/DeleteRecipeButton';
 import "./RecipePage.css"
 
-interface props {
-    recipeid: number
-}
+let recipeidToDelete: any;
 
 function insertTitle(title: string) {
     document.getElementById('titleField').innerHTML = title;
@@ -48,18 +48,47 @@ function insertPreparation(preparation: string) {
 
 function recipePageVisibility() {
     document.getElementById('visibilityDiv').style.display='block';
+    toggleDeleteButton();
+}
+
+function toggleDeleteButton() {
+    const isAdmin = localStorage.getItem('isAdmin');
+    const hideButton = document.getElementById('deleteRecipeButton');
+    if(isAdmin == 'false'){
+        hideButton!.style.display = 'none';
+    }
+
 }
 
 function recipePageHide() {
     document.getElementById('visibilityDiv').style.display='none';
 }
 
+
 function insertID (recipeid: number) {
-    document.getElementById('delete').innerHTML = String(recipeid);
+    console.log(3);
+    recipeidToDelete = recipeid;
 }
 
 
 export default function RecipePage(){
+    let navigate = useNavigate(); 
+    const isAdmin = localStorage.getItem('isAdmin');
+    
+    const deleteRecipe = async() => {
+        if(isAdmin == 'true'){
+            const deleteResult = await deleteRecipeReturn(recipeidToDelete);
+            console.log('hei dette er innerhtml: ' + recipeidToDelete);
+            if(deleteResult == 1){
+                recipePageHide();
+                window.location.reload();
+                let path = '/'; 
+                navigate(path);
+            }
+        } else {
+            console.log('not admin');
+        }
+    }
 
     return(
         <div id="visibilityDiv" className="wrapper">
@@ -69,7 +98,7 @@ export default function RecipePage(){
             </div>
             <h1 id="titleField"></h1>
             <h6 id="owner"></h6>
-            <DeleteRecipeButton inputID='delete'/>
+            <button id='deleteRecipeButton' onClick={deleteRecipe}></button>
             <div className='three'>
                 <div className="gridItem">
                     <h3 className="headerField">Time estimate:</h3>
@@ -93,7 +122,7 @@ export default function RecipePage(){
 
     );
 }
-export {insertOwner, recipePageVisibility, insertID, insertTitle, insertPhoto, insertCategoryAndTimeEstimate, insertPreparation, insertIngredients}
+export {insertOwner, recipePageVisibility, insertTitle, insertPhoto, insertID, insertCategoryAndTimeEstimate, insertPreparation, insertIngredients}
 /*
                 <ol>
                     {ingredients.map(ingredient=>(

@@ -44,6 +44,7 @@ https://css-tricks.com/snippets/css/complete-guide-grid/
     grid-column-start: 2;
     grid-row-start: 2;
 }*/
+
 #visibilityDiv {
     display: none;
     z-index: 10;
@@ -131,4 +132,11 @@ https://css-tricks.com/snippets/css/complete-guide-grid/
 #owner {
     font-size: 2vw;
     font-weight: 300;
+}
+
+#deleteRecipeButton {
+    z-index: 11;
+    background-image: url( '../../images/bin.png');
+    padding: 20px 20px;
+    display: block;
 }
