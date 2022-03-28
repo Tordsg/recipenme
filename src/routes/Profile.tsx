@@ -237,7 +237,6 @@ export default function Profile(){
                         indicatorColor="secondary"
                         >
                             <Tab label="My recipes" />
-                            <Tab label="Saved recipes" />
                         </Tabs>
                         <TabPanel value={value} index={0}>
                         {data}
