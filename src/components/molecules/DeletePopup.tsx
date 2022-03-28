@@ -67,8 +67,8 @@ export default function DeletePopup({id}:popupId) {
                 <>
                     <h2 className="header">Please enter your password to delete your account.</h2>
                     <form>
-                        <AccountTextField type='text' id='deletePassword' placeholder='Password' />
-                        <AccountTextField type='text' id='deletePasswordRepeat' placeholder='Repeat password' />
+                        <AccountTextField type='password' id='deletePassword' placeholder='Password' />
+                        <AccountTextField type='password' id='deletePasswordRepeat' placeholder='Repeat password' />
                     </form>
                     <p id='errorDelete' className='deleteError'></p>
                     <AccountButton handleClick={deleteProfile} buttonText='Delete my account'/>
