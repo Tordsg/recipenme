@@ -108,6 +108,7 @@ const NewRecipeForm = () => {
     const routeChange = () =>{ 
         let path = '/profile'; 
         navigate(path);
+        window.location.reload();
       }
       
     return (
