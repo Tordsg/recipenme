@@ -56,7 +56,9 @@ export default function LoginForm(){
                 <AccountTextField type={'password'} id={'passwordFieldLogin'} placeholder={'Password'}/>
             </form>
             <p id="errorMessage" className='loginError'>Username or password is incorrect</p>
-            <AccountButton handleClick={routeChange} buttonText='Login'/>
+            <div id="button">
+                <AccountButton handleClick={routeChange} buttonText='Login'/>
+            </div>
             <br />
             <AccountSwitchButton labelText="Don't have an account?" buttonText='Sign up here' inputPath='/signup'/>
         </div>
