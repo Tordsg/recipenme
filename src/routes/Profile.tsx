@@ -13,6 +13,8 @@ import { getRecipe, getRecipeReturn, getRecipesFromUserReturn, getUser, getUserR
 import { convertTypeAcquisitionFromJson, isReturnStatement } from 'typescript';
 import ProfileRecipes from './ProfileRecipeFeed';
 import TitlebarImageList from '../components/molecules/imagelistTest';
+import FormButton from '../components/atoms/FormButton';
+import { createTheme, ThemeProvider } from '@mui/material';
 const axios = require('axios').default;
 axios.defaults.baseURL = 'http://127.0.0.1:8000/app1';
 
@@ -86,7 +88,7 @@ async function SetName() {
     
  }
 
-  
+
 
 
 export default function Profile(){
@@ -94,6 +96,8 @@ export default function Profile(){
     let navigate = useNavigate(); 
     const [value, setValue] = React.useState(0);
     const [data, setData] = React.useState<JSX.Element>();
+    const [userData, setUserData] = React.useState<JSX.Element>();
+
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
       setValue(newValue);
     };
@@ -101,11 +105,14 @@ export default function Profile(){
     const handleChangeIndex = (index: number) => {
         setValue(index);
     };
+    const url = window.location.pathname;
+   
     useEffect(() => {
-        console.log('oppdatert')
+        console.log('oppdatert på navigate')
     try {
         axios.get('/getUserRecipes/' + localStorage.getItem('user').toString())
         .then((result: any) => {
+            console.log(result.data)
           setData(TitlebarImageList(userRecipes(result.data)));
         })
       } catch (error) {
@@ -123,40 +130,124 @@ export default function Profile(){
       navigate(path);
     }
 
-    
+    /**
+        <div>
+            <IconButton aria-label="add_circle" color="secondary" onClick={routeChange}>
+                <AddIcon />
+            </IconButton>
+        </div>
+     */
 
+        const theme = createTheme({
+            components: {
+              // Name of the component
+              MuiSvgIcon: {
+                styleOverrides: {
+                    fontSizeSmall: {
+                        fontSize: '2.2vw',
+                    },
+                },
+              },
+              MuiTabs: {
+                styleOverrides: {
+                    flexContainer: {
+                        width: '80vw',
+                        margin: 'auto',
+                        marginTop: '1vw',
+                        padding: '0px',
+                    },
+                    indicator: {
+                        backgroundColor: '#76af67',
+                    }
+                },
+              },
+              MuiButtonBase: {
+                styleOverrides: {
+                    root: {
+                        padding: '0px',
+                        margin: '0px',
+                        minWidth: 'none',
+                    },
+                }
+              },
+              MuiTab: {
+                styleOverrides: {
+                  // Name of the slot
+                  root: {
+                    maxWidth: '10vw',
+                    minWidth: '10vw',
+                    width: '10vw',
+                    fontSize: '1.2vw',
+                    margin: '0px',
+                    padding: '1vw 0.5vw',
+                  },
+                  textColorSecondary: {
+                    // Some CSS
+                    color: '#000000',
+                    "&.Mui-selected": {
+                        color: '#76af67',
+                      }
+                  },
+                },
+              },
+            },
+          });
 
+    function createUserData(dict: any){
+        return(
+            <div className="NewRecipe">
+                <div id="userinfo">
+                    <h1 className = 'ProfileUserName'>Logged in as {dict.username}</h1>
+                </div>
+
+                <div id="pluss" onClick={routeChange}>
+                    <FormButton label={'Create recipe'} id={'submitRecipe'} handleClick={routeChange}></FormButton>
+                </div>
+
+            </div>
+        );
+    }  
+    useEffect(() => {
+        console.log('oppdatert på url')
+    try {
+        axios.get('/user/' + localStorage.getItem('user').toString())
+        .then((result: any) => {
+          setUserData(createUserData(result.data));
+        })
+      } catch (error) {
+        console.log(error);
+      }
+    }, [url]);
     return (
-        <div className="wrapper">
+        <div className="tabContainer">
             <div className="Biography">
                 <div className="UserName"> 
                     <h1 id='name' onLoad={SetName}></h1>
                 </div>
-                <div className="NewRecipe">
-                    <IconButton aria-label="add_circle" color="secondary" onClick={routeChange}>
-                        <AddIcon />
-                    </IconButton>
-                </div>
+                {userData}
             </div>
             <div className="tabs">
                 <Box sx={{ width: '100%' }}>
-                    <Tabs 
-                    value={value} 
-                    onChange={handleChange} 
-                    centered
-                    textColor="secondary"
-                    indicatorColor="secondary"
-                    >
-                        <Tab label="My recipes" />
-                        <Tab label="Saved recipes" />
-                    </Tabs>
-                    <TabPanel value={value} index={0}>
-                    {data}
-                    </TabPanel>
-                    
-                    <TabPanel value={value} index={1}>
-                       
-                    </TabPanel>
+                    <ThemeProvider theme={theme}>
+                        <Tabs 
+                        value={value} 
+                        onChange={handleChange} 
+                        centered
+                        textColor="secondary"
+                        indicatorColor="secondary"
+                        >
+                            <Tab label="My recipes" />
+                            <Tab label="Saved recipes" />
+                        </Tabs>
+                        <TabPanel value={value} index={0}>
+                        {data}
+                        </TabPanel>
+                        
+                        <TabPanel value={value} index={1}>
+                        
+                        </TabPanel>
+                    </ThemeProvider>
+
                 </Box>
             </div>
         </div>

@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import NavbarLogo from '../components/atoms/NavbarLogo';
 import NavbarTitle from '../components/atoms/NavbarTitle';
 import NavbarDropdown from '../components/molecules/NavbarDropdown';
-
+import "./NavBar.css"
 
 export default function Navbar(){
 
@@ -24,7 +24,7 @@ export default function Navbar(){
 
     return(
         <div>
-            <nav>
+            <nav id="navbarContent">
                 <NavbarLogo />
                 <NavbarTitle />
                 <NavbarDropdown />
