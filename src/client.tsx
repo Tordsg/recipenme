@@ -74,8 +74,8 @@ async function deleteUserReturn(userID: number){
   return deleteResponse;
 }
 async function getUserReturn(userID : number) {
-  getUser(userID);
- return userData;
+  await getUser(userID);
+  return userData;
 }
 
 async function getUser2(userID : number) {

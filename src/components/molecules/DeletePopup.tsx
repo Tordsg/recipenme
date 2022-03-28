@@ -12,7 +12,7 @@ interface popupId {
 }
 
 export default function DeletePopup({id}:popupId) {
-    const error = document.getElementById('errorDelete')!;
+    //error!.style.display = 'none';
     const userID = Number(localStorage.getItem('user'));
     console.log("hei jeg er userID " + userID);
     let navigate = useNavigate(); 
@@ -26,10 +26,12 @@ export default function DeletePopup({id}:popupId) {
         const pwdRepeat = (document.getElementById('deletePasswordRepeat') as HTMLInputElement).value;
 
         if(pwd != pwdRepeat){
+            const error = document.getElementById('errorDelete');
             console.log('rip');
-            error.innerHTML = 'Passwords do not match!';
-            error.style.display = 'block';
+            error!.style.display = 'block';
+            error!.innerHTML = 'Passwords do not match!';
         } else {
+            const error = document.getElementById('errorDelete');
             const tryLogin = await loginReturn(username, pwd);
             if(tryLogin === parseInt(tryLogin, 10)){
                 const deleteResult = await deleteUserReturn(userID);
@@ -41,8 +43,8 @@ export default function DeletePopup({id}:popupId) {
                 }
                 console.log('heihei');
             } else {
-                error.innerHTML = 'Wrong password';
-                error.style.display = 'block';
+                error!.style.display = 'block';
+                error!.innerHTML = 'Wrong password';
             }
         }
     }
