@@ -4,6 +4,12 @@ let userID: any;
 let userData: any;
 let recipeData: any;
 let deleteResponse: any;
+let userRecipedata: any;
+let queryData: any;
+let categoryData: any;
+let userData2: any;
+let categoryData2: any;
+
 
 async function postUser(firstNameToPost:string, lastNameToPost:string, usernameToPost:string, emailToPost:string, passwordToPost:string) {
     try {
@@ -67,6 +73,32 @@ async function deleteUserReturn(userID: number){
   await deleteUser(userID);
   return deleteResponse;
 }
+async function getUserReturn(userID : number) {
+  getUser(userID);
+ return userData;
+}
+
+async function getUser2(userID : number) {
+  try {
+    const response = await axios.get('/user/' + userID)
+    .then((result: any) => {
+      userData2 = JSON.stringify(result.data);
+      return userData2;
+    })
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+//ikke async
+function getUserReturnNoWait(userID : number) {
+  getUser2(userID);
+  return userData2;
+ }
+
+ 
 
 async function getRecipe(recipeID: string){
   try {
@@ -80,12 +112,18 @@ async function getRecipe(recipeID: string){
     console.log(error);
   }
 }
+
+
+  function getRecipeReturn(recipeID: string){
+      getRecipe(recipeID);
+      return recipeData;
+}
 async function getRecipeFromUser(userID: string){
   try {
     const response = await axios.get('/getUserRecipes/' + userID)
     .then((result: any) => {
-      userData = JSON.stringify(result.data);
-      return result.data;
+      userRecipedata = result.data;
+      return userRecipedata;
     })
     console.log(response);
   } catch (error) {
@@ -93,10 +131,11 @@ async function getRecipeFromUser(userID: string){
   }
 }
 
-async function getUserReturn(userID : number) {
-  await getUser(userID);
-  return userData;
+function getRecipesFromUserReturn(userID: string) {
+  getRecipeFromUser(userID);
+  return userRecipedata;
 }
+
 
 async function loginUser(username:string, password:string){
   try {
@@ -278,4 +317,61 @@ function postCategory(categoryToPost:string) {
   });
 }
 
-export { getRecipeFromUser,getRecipes, getRecipe, postUser, deleteUser, deleteUserReturn, postUserReturn, getUser, getUserReturn, postRecipe, postComment, postLike, postScore, postFavorite, postFollower, postCategory, loginUser, loginReturn, UpdateProfile }
+async function getQuery(query: string){
+  try {
+
+    const response = await axios.get('/search/' + query)
+    .then((result: any) => {
+
+      queryData = JSON.stringify(result.data);
+
+      return queryData;
+    })
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+async function getRecipeFromCategory(category: string){
+  try {
+    const response = await axios.get('/filter/' + category)
+    .then((result: any) => {
+
+      categoryData = result.data;
+      return categoryData;
+    })
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+ function getRecipeFromCategoryReturn(category: string) {
+  getRecipeFromCategory(category);
+  return categoryData;
+}
+
+async function getRecipeFromCategory2(category: string){
+  try {
+    const response = await axios.get('/filter/' + category)
+    .then((result: any) => {
+
+      categoryData2 = result.data;
+      return categoryData2;
+    })
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+ async function getRecipeFromCategoryReturn2(category: string) {
+  await getRecipeFromCategory(category);
+  return categoryData2;
+}
+
+
+
+
+export {UpdateProfile, getRecipeFromCategoryReturn2, deleteUser, deleteUserReturn, getRecipeFromCategoryReturn, getRecipesFromUserReturn, getQuery, getRecipeFromCategory, getUserReturnNoWait, getRecipeReturn, getRecipeFromUser,getRecipes, getRecipe, postUser, postUserReturn, getUser, getUserReturn, postRecipe, postComment, postLike, postScore, postFavorite, postFollower, postCategory, loginUser, loginReturn }

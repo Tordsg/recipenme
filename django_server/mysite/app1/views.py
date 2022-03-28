@@ -1,5 +1,6 @@
 import base64
 import email
+from unicodedata import category
 from django import http
 from django.forms import JSONField
 from django.http import Http404, HttpResponse, HttpResponseBadRequest, HttpResponseNotFound, JsonResponse, request
@@ -41,6 +42,7 @@ def getUser(request, user_id):
                 ##serialized = userSerializer(user)
                 data_details = {'first_name' : user.first_name, 'last_name':user.last_name, 'email' : user.email, 'username' : user.username}
                 return HttpResponse(json.dumps(data_details))
+                # JsonResponse(data_details)
         except:
             user = None
             return HttpResponse(user)
@@ -82,6 +84,7 @@ def recipe(request, pk):
             return HttpResponseNotFound('notFound')
     else:
         return HttpResponseBadRequest('bad')
+        
 def getUserRecipes(request, pk):
     if(request.method=='GET'):
             recipes = Recipe.objects.filter(owner_id = pk).all()
@@ -89,7 +92,66 @@ def getUserRecipes(request, pk):
             i = 0
             for recipe in recipes:
                 l[i] = (getRecipeSerializer(recipe).data)
+                l[i]['username'] = get_object_or_404(User, pk=l[i].get('owner_id')).username
                 i += 1
             return JsonResponse(l)
     else:
         return HttpResponseBadRequest('bad')
+        
+def getAll(request):
+     if request.method == 'GET':
+        try:
+            recipes = Recipe.objects.all()
+            full_data_details = {}
+            i=0
+            for recipe in recipes:
+                full_data_details[i] = (getRecipeSerializer(recipe).data)
+                full_data_details[i]['username'] = get_object_or_404(User, pk=full_data_details[i].get('owner_id')).username
+                i+=1
+                ## fix image later
+                # ownerJSON = getUser(recipe.owner)
+                # print(recipe.image)
+                # data_details = {'recipe_id' : recipe.pk, 'title' : recipe.title, 'first_name' : ownerJSON['first_name'], 'last_name' : ownerJSON['first_name'], 'image' : recipe.image}
+                # full_data_details.append(json.dumps(data_details))
+            return JsonResponse(full_data_details)
+        except:
+            return HttpResponse("failed")
+
+def makeSearch(request, q):
+    if request.method == 'GET':
+        try:
+            recipes = Recipe.objects.filter(title__contains=q).all()
+            print("before")
+            print(recipes)
+            print("after")
+            full_data_details = {}
+            i=0
+            for recipe in recipes:
+                full_data_details[i] = (getRecipeSerializer(recipe).data)
+                full_data_details[i]['username'] = get_object_or_404(User, pk=full_data_details[i].get('owner_id')).username
+                i+=1
+                ## fix image later
+                # ownerJSON = getUser(recipe.owner)
+                # print(recipe.image)
+                # data_details = {'recipe_id' : recipe.pk, 'title' : recipe.title, 'first_name' : ownerJSON['first_name'], 'last_name' : ownerJSON['first_name'], 'image' : recipe.image}
+                # full_data_details.append(json.dumps(data_details))
+            return JsonResponse(full_data_details)
+        except:
+            return HttpResponse("failed")
+
+def getRecipesFromCategory(request, c):
+    if (request.method == 'GET'):
+        try:
+            #recipes = Recipe.get_queryset(q)
+            recipes = Recipe.objects.filter(category__contains=c).all()
+            print(recipes)
+            l = {}
+            i=0
+            for recipe in recipes:
+                l[i] = (getRecipeSerializer(recipe).data)
+                l[i]['username'] = get_object_or_404(User, pk=l[i].get('owner_id')).username
+                i+=1
+            return JsonResponse(l)
+        except:
+            return HttpResponse("failed")
+
