@@ -4,8 +4,9 @@ import AccountButton from '../atoms/AccountButton';
 import {getUserReturn, UpdateProfile } from '../../client';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+const axios = require('axios').default;
+axios.defaults.baseURL = 'http://127.0.0.1:8000/app1';
 
-//TODO: Find a way to get the placeholder to show current data. 
 function getFirstName() {
   let firstName = (document.getElementById("firstNameFieldSignUp") as HTMLInputElement).value;
   console.log(firstName);
@@ -16,7 +17,6 @@ function getFirstName() {
 function getLastName() {
   let lastName = (document.getElementById("lastNameFieldSignUp") as HTMLInputElement).value;
   console.log(lastName);
-
   return lastName;
 }
 
@@ -66,42 +66,59 @@ function checkIfEmpty(){
 }
 
 export default function EditProfile() {
+
+let navigate = useNavigate();
+
 //==========user
 const userID = Number(localStorage.getItem('user'));
-console.log(userID);
-const userIDtostring = userID.toString();
-//
 
 const routeChange = async () =>{
-console.log(userID);
+
 if(checkIfEmpty()){
   if(checkPassword()){
     await UpdateProfile(userID, getFirstName(), getLastName(), getUsername(), getEmail(), getPassword());
+
+    let path = '/profile'; 
+    navigate(path);
   }
 }
 else {
-  console.log("fuck meg")
+  console.log("")
   }
 }
+function createElements(dict: any){
+ 
+  return(
+    <form className="EPTextFieldBox">
+      <p className='FirstName'> First Name</p> 
+      <AccountTextField type={'text'} id="firstNameFieldSignUp" placeholder={dict.first_name} />
+      <p className='LastName'>Last Name</p>
+      <AccountTextField type={'text'} id="lastNameFieldSignUp" placeholder={dict.last_name} />
+      <p className='Username'>Username</p>
+      <AccountTextField type={'text'} id="usernameFieldSignUp" placeholder={dict.username}/>
+      <p className='E-mail'>E-mail</p>
+      <AccountTextField type={'text'} id="emailFieldSignUp" placeholder={dict.email} />
+      <p className='Password'>Password</p>
+      <AccountTextField type={'password'} id="passwordFieldSignUp" placeholder={' password'} />
+      <p className='RepeatPassword'>Repeat Password</p>
+      <AccountTextField type={'password'} id="repeatPasswordFieldSignUp" placeholder={'Repeat password'}/>
+    </form>)
+}
+
+const [data, setData] = React.useState<JSX.Element>();
+React.useEffect( () => {
+  axios.get('/user/' + localStorage.getItem('user')).then((resolve: any) => {
+    let rawData = resolve.data;
+    setData(createElements(rawData));
+    console.log(rawData);
+  })
+}, []);
 
   return (
     <div className='EPOuterProfileBox'>
         <h2 className='EPEditProfileHeader'>Account Information</h2>
         <div className='EPContentBox'>
-            <form className="EPTextFieldBox">
-                <p className='FirstName'>First-Name</p>
-                <AccountTextField type={'text'} id="firstNameFieldSignUp" placeholder={"First name"} />
-                <p className='LastName'>Last-Name</p>
-                <AccountTextField type={'text'} id="lastNameFieldSignUp" placeholder={'Last name'}/>
-                <p className='Username'>Username</p>
-                <AccountTextField type={'text'} id="usernameFieldSignUp" placeholder={'Username'}/>
-                <p className='E-mail'>E-mail</p>
-                <AccountTextField type={'text'} id="emailFieldSignUp" placeholder={'Email'}/>
-                <p className='Password'>Password</p>
-                <AccountTextField type={'password'} id="passwordFieldSignUp" placeholder={'Password'}/>
-                <p className='RepeatPassword'>Repeat Password</p>
-                <AccountTextField type={'password'} id="repeatPasswordFieldSignUp" placeholder={'Repeat password'}/>
-            </form>
+                {data}
             <div className='EPBottomBox'>
                 <AccountButton handleClick={routeChange} buttonText='Save Changes'/>
             </div>

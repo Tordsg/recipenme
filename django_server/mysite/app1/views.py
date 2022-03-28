@@ -5,7 +5,7 @@ from django import http
 from django.forms import JSONField
 from django.http import Http404, HttpResponse, HttpResponseBadRequest, HttpResponseNotFound, JsonResponse, request
 from django.shortcuts import get_object_or_404
-from .models import CreatePost, CreateUser, Recipe, UpdateProfile, User
+from .models import CreatePost, CreateUser, Recipe, UpdateProfile, User, GetUserFromID
 from .serializer import userSerializer, recipeForm, getRecipeSerializer
 import random
 import json
@@ -47,7 +47,12 @@ def getUser(request, user_id):
             user = None
             return HttpResponse(user)
 
-def updateUser(request):
+def getuserfromid(request, key):
+    if request.method == 'GET':
+        return JsonResponse(GetUserFromID(key))
+
+
+def updateProfile(request):
     if request.method=='POST':
         print("hello")
         a = json.loads(request.readline().decode('utf-8'))

@@ -4,7 +4,6 @@ from django.contrib.auth import authenticate
 from pyexpat import model
 from statistics import mode
 import random
-
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 
@@ -58,13 +57,13 @@ class Favorite(models.Model):
 def CreateUser(username, email, password, first_name, last_name):
     try:
         obj = get_object_or_404(User, username = username)
-        return 0;
+        return 0
     except:
         user = User.objects.create_user(username, email, password)
         user.first_name = first_name
         user.last_name = last_name
         user.save()
-        return 1;
+        return 1
     
 def Login(brukernavn, passord):
     user = authenticate(username= brukernavn, password= passord)
@@ -88,6 +87,7 @@ def CreatePost(user, title, bilde, tid, kategori, tilbredning, ingredienser):
 def UpdateProfile(userid, username1, email1, password1, first_name1, last_name1):
     print(userid)
     user= get_object_or_404(User, pk=userid)
+    #user = User.objects.get(pk=userid)
     user.username = username1
     print("denne vil vi at ikke skal være null" + user.username)
     print("denne vil vi også at ikke skal være null" + username1)
@@ -97,3 +97,10 @@ def UpdateProfile(userid, username1, email1, password1, first_name1, last_name1)
     user.first_name = first_name1
     user.last_name = last_name1
     user.save()
+
+def GetUserFromID(userid):
+    user= get_object_or_404(User, pk=userid)
+    b = user.get_full_name.split(" ")
+    a = [user.get_username(), "skriv epost", "skriv passord", b[0], b[1]]
+    return a
+    
