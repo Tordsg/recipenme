@@ -22,6 +22,7 @@ export default function LoginForm(){
     let userLastName;
     let userEmail;
     let userUsername;
+    let isAdmin;
 
     const routeChange = async () =>{ 
         const userID = await loginReturn(getUserName(), getPassword());
@@ -38,8 +39,11 @@ export default function LoginForm(){
             userLastName = objList.last_name;
             userEmail = objList.email;
             userUsername = objList.username;
+            isAdmin = objList.is_superuser;
+            console.log('IS ADMIN: ', isAdmin);
 
             localStorage.setItem('user', userID);
+            localStorage.setItem('isAdmin', isAdmin);
             
             let path = '/'; 
             navigate(path);

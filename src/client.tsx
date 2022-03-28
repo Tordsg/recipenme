@@ -9,7 +9,7 @@ let queryData: any;
 let categoryData: any;
 let userData2: any;
 let categoryData2: any;
-let isAdmin: any;
+let deleteRecipeResponse: any;
 
 
 async function postUser(firstNameToPost:string, lastNameToPost:string, usernameToPost:string, emailToPost:string, passwordToPost:string) {
@@ -78,20 +78,27 @@ async function deleteUserReturn(userID: number){
 async function getUserReturn(userID : number) {
   //let userIDString = '' + userID;
   await getUser(userID);  
- return userData;
+  return userData;
 }
 
-async function isUserAdmin(userID : number) {
+async function deleteRecipe(recipeID : number){
   try {
-    const response = await axios.get('/isadmin/' + userID)
+    const response = await axios.post('deleteRecipe/', {
+      recipeID: recipeID
+    })
     .then((result: any) => {
-      isAdmin = result.data;
-      return isAdmin;
+      deleteRecipeResponse = result.data;
+      return deleteRecipeResponse;
     })
     console.log(response);
-  } catch (error){
-    console.log(error);
+  } catch (error) {
+    console.log(error)
   }
+}
+
+async function deleteRecipeReturn(recipeID: number){
+  await deleteRecipe(recipeID);
+  return deleteRecipeResponse;
 }
 
 async function getUser2(userID : number) {
@@ -130,9 +137,9 @@ async function getRecipe(recipeID: string){
 }
 
 
-  function getRecipeReturn(recipeID: string){
-      getRecipe(recipeID);
-      return recipeData;
+function getRecipeReturn(recipeID: string){
+    getRecipe(recipeID);
+    return recipeData;
 }
 async function getRecipeFromUser(userID: string){
   try {
@@ -389,4 +396,4 @@ async function getRecipeReturnAsync(recipeID : string) {
 }
 
 
-export {getRecipeReturnAsync, UpdateProfile, getRecipeFromCategoryReturn2, deleteUser, deleteUserReturn, getRecipeFromCategoryReturn, getRecipesFromUserReturn, getQuery, getRecipeFromCategory, getUserReturnNoWait, getRecipeReturn, getRecipeFromUser,getRecipes, getRecipe, postUser, postUserReturn, getUser, getUserReturn, postRecipe, postComment, postLike, postScore, postFavorite, postFollower, postCategory, loginUser, loginReturn }
+export {getRecipeReturnAsync, UpdateProfile, getRecipeFromCategoryReturn2, deleteUser, deleteUserReturn, deleteRecipeReturn, getRecipeFromCategoryReturn, getRecipesFromUserReturn, getQuery, getRecipeFromCategory, getUserReturnNoWait, getRecipeReturn, getRecipeFromUser,getRecipes, getRecipe, postUser, postUserReturn, getUser, getUserReturn, postRecipe, postComment, postLike, postScore, postFavorite, postFollower, postCategory, loginUser, loginReturn }

@@ -1,6 +1,11 @@
 import { textAlign } from '@mui/system';
 import React from 'react';
+import DeleteRecipeButton from '../atoms/DeleteRecipeButton';
 import "./RecipePage.css"
+
+interface props {
+    recipeid: number
+}
 
 function insertTitle(title: string) {
     document.getElementById('titleField').innerHTML = title;
@@ -49,6 +54,10 @@ function recipePageHide() {
     document.getElementById('visibilityDiv').style.display='none';
 }
 
+function insertID (recipeid: number) {
+    document.getElementById('delete').innerHTML = String(recipeid);
+}
+
 
 export default function RecipePage(){
 
@@ -60,6 +69,7 @@ export default function RecipePage(){
             </div>
             <h1 id="titleField"></h1>
             <h6 id="owner"></h6>
+            <DeleteRecipeButton inputID='delete'/>
             <div className='three'>
                 <div className="gridItem">
                     <h3 className="headerField">Time estimate:</h3>
@@ -83,7 +93,7 @@ export default function RecipePage(){
 
     );
 }
-export {insertOwner, recipePageVisibility, insertTitle, insertPhoto, insertCategoryAndTimeEstimate, insertPreparation, insertIngredients}
+export {insertOwner, recipePageVisibility, insertID, insertTitle, insertPhoto, insertCategoryAndTimeEstimate, insertPreparation, insertIngredients}
 /*
                 <ol>
                     {ingredients.map(ingredient=>(
