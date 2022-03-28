@@ -14,7 +14,7 @@ urlpatterns = [
     path('createUser/<int:pk>', views.createUser),
     path('postRecipe', views.postRecipe),
     path('recipe/<int:pk>', views.recipe, name = 'getRecipe'),
-    path('updateProfile', views.updateUser),
+    path('updateProfile', views.updateProfile, name = 'updateProfile'),
     path('getUserRecipes/<int:pk>', views.getUserRecipes, name = 'getUserRecipes'),
     path('search/<str:q>', views.makeSearch),
     path('getAll', views.getAll),
