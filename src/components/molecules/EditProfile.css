@@ -1,6 +1,7 @@
 .EPOuterProfileBox {
+    margin-top: -5vh;
     margin-left: 20%;
-    margin-right: 20%;
+    margin-right: 20%;  
 }
 
 .EPTextFieldBox {
@@ -14,10 +15,12 @@
 }
 
 .EPContentBox {
+    position: relative;
     border: #d3e4ce solid 0.3vw;
     margin-left: 21%;
     margin-right: 21%;
     border-radius: 1vw;
+    margin-top: -5vh;
 }
 
 .FirstNameBox {
@@ -50,7 +53,7 @@
 }
 
 .RepeatPassword {
-    margin-right: 7%;
+    margin-right: 8%;
 }
 
 .EPEditProfileHeader {
@@ -62,7 +65,11 @@
 }
 
 .EPBottomBox {
-    margin-bottom: 2%;
-    margin-top: -5%;
-    margin-right: 8%;
+    position: relative;
+    margin-bottom: 2vh;
+    margin-left: auto;
+    margin-right: auto;
+    right: 0px;
+    left: 0px;
+    text-align: center;
 }
