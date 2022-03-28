@@ -111,7 +111,7 @@ export default function Profile(){
       } catch (error) {
         console.log(error);
       }
-    }, [navigate]);
+    }, [navigate, location]);
     /* Handlers for new-recipe button 
     source: https://stackoverflow.com/questions/50644976/react-button-onclick-redirect-page
     */
