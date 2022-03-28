@@ -12,9 +12,7 @@ interface popupId {
 }
 
 export default function DeletePopup({id}:popupId) {
-    //error!.style.display = 'none';
     const userID = Number(localStorage.getItem('user'));
-    console.log("hei jeg er userID " + userID);
     let navigate = useNavigate(); 
 
     const deleteProfile = async() => {
@@ -27,7 +25,6 @@ export default function DeletePopup({id}:popupId) {
 
         if(pwd != pwdRepeat){
             const error = document.getElementById('errorDelete');
-            console.log('rip');
             error!.style.display = 'block';
             error!.innerHTML = 'Passwords do not match!';
         } else {
@@ -35,13 +32,11 @@ export default function DeletePopup({id}:popupId) {
             const tryLogin = await loginReturn(username, pwd);
             if(tryLogin === parseInt(tryLogin, 10)){
                 const deleteResult = await deleteUserReturn(userID);
-                console.log("Hei dette er delete: " + deleteResult);
                 if(deleteResult == 1){
                     localStorage.setItem('user', '-1');
                     let path = '/'; 
                     navigate(path);
                 }
-                console.log('heihei');
             } else {
                 error!.style.display = 'block';
                 error!.innerHTML = 'Wrong password';

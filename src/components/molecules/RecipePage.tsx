@@ -2,7 +2,6 @@ import { textAlign } from '@mui/system';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { deleteRecipeReturn } from '../../client';
-import DeleteRecipeButton from '../atoms/DeleteRecipeButton';
 import "./RecipePage.css"
 
 let recipeidToDelete: any;
