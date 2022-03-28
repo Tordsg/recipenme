@@ -74,8 +74,9 @@ async function deleteUserReturn(userID: number){
   return deleteResponse;
 }
 async function getUserReturn(userID : number) {
-  await getUser(userID);
-  return userData;
+  //let userIDString = '' + userID;
+  await getUser(userID);  
+ return userData;
 }
 
 async function getUser2(userID : number) {
@@ -367,7 +368,10 @@ async function getRecipeFromCategory2(category: string){
   return categoryData2;
 }
 
+async function getRecipeReturnAsync(recipeID : string) {
+  await getRecipe(recipeID);
+  return recipeData;
+}
 
 
-
-export {UpdateProfile, getRecipeFromCategoryReturn2, deleteUser, deleteUserReturn, getRecipeFromCategoryReturn, getRecipesFromUserReturn, getQuery, getRecipeFromCategory, getUserReturnNoWait, getRecipeReturn, getRecipeFromUser,getRecipes, getRecipe, postUser, postUserReturn, getUser, getUserReturn, postRecipe, postComment, postLike, postScore, postFavorite, postFollower, postCategory, loginUser, loginReturn }
+export {getRecipeReturnAsync, UpdateProfile, getRecipeFromCategoryReturn2, deleteUser, deleteUserReturn, getRecipeFromCategoryReturn, getRecipesFromUserReturn, getQuery, getRecipeFromCategory, getUserReturnNoWait, getRecipeReturn, getRecipeFromUser,getRecipes, getRecipe, postUser, postUserReturn, getUser, getUserReturn, postRecipe, postComment, postLike, postScore, postFavorite, postFollower, postCategory, loginUser, loginReturn }
