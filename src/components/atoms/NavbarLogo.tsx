@@ -1,11 +1,12 @@
 import React from "react";
 import appLogo from "../../images/recipenmeLogo.png";
+import "./NavbarLogo.css";
+
 
 export default function NavbarLogo() {
     return (
-        <div className="navbarLogo--box">
-            <img 
-                className="navbarLogo"
+        <div>   
+            <img id="image" 
                 src={appLogo}
                 alt="recipenme logo"
             />

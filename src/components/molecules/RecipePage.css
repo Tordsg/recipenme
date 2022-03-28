@@ -13,7 +13,6 @@ https://css-tricks.com/snippets/css/complete-guide-grid/
     grid-template-rows: 25% 75%;
     column-gap: 10px;
     row-gap: 10px;
-    background-color: #FEFBE9;
     color: black;
 }
 
