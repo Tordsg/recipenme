@@ -9,6 +9,7 @@ let queryData: any;
 let categoryData: any;
 let userData2: any;
 let categoryData2: any;
+let isAdmin: any;
 
 
 async function postUser(firstNameToPost:string, lastNameToPost:string, usernameToPost:string, emailToPost:string, passwordToPost:string) {
@@ -73,9 +74,23 @@ async function deleteUserReturn(userID: number){
   await deleteUser(userID);
   return deleteResponse;
 }
+
 async function getUserReturn(userID : number) {
   await getUser(userID);
   return userData;
+}
+
+async function isUserAdmin(userID : number) {
+  try {
+    const response = await axios.get('/isadmin/' + userID)
+    .then((result: any) => {
+      isAdmin = result.data;
+      return isAdmin;
+    })
+    console.log(response);
+  } catch (error){
+    console.log(error);
+  }
 }
 
 async function getUser2(userID : number) {
